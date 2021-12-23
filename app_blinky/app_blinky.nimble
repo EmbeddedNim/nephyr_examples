@@ -1,7 +1,6 @@
 # Package
 
 version       = "0.1.0"
-author        = "Jaremy J. Creechley"
 description   = "Nim wrapper for Zephyr RTOS"
 license       = "Apache-2.0"
 srcDir        = "src"
@@ -15,5 +14,4 @@ requires "https://github.com/EmbeddedNim/nephyr#main"
 
 # includes nimble tasks for building Zephyr/west projects
 include nephyr/build_utils/tasks
-
 
