@@ -1,0 +1,50 @@
+{
+	// based on: https://github.com/zephyrproject-rtos/zephyr/issues/21119#issuecomment-887309081
+	"name": "Zephyr development environment",
+	"build": {
+		"dockerfile": "Dockerfile",
+		"args": {
+			"FROM_TAG": "v0.21.0",
+			"UID": "${localEnv:UID}",
+			"GID": "${localEnv:GID}",
+		}
+	},
+	"runArgs": [
+		// https://github.com/microsoft/vscode-remote-release/issues/3920
+		// https://stackoverflow.com/questions/60966580/how-to-access-usb-ports-from-docker-container-on-mac-os
+		// "--env-file",".devcontainer/devcontainer.env",
+		"--privileged",
+		"--device=/dev/bus/usb",
+		"--volume=/dev/bus/usb/:/dev/bus/usb"
+	],
+	// define extensions
+	"extensions": [
+		"ms-vscode.cpptools",
+		"ms-vscode.cpptools-extension-pack",
+		"twxs.cmake",
+		"marus25.cortex-debug",
+		"trond-snekvik.devicetree",
+		"trond-snekvik.kconfig-lang",
+		"editorconfig.editorconfig",
+		"jebbs.plantuml",
+		"nimsaem.nimvscode"
+	],
+	"remoteUser": "user",
+	"remoteEnv": {
+		"ZEPHYR_BASE": "/home/user/zephyrproject/zephyr/"
+	},
+	// Set *default* container specific settings.json values on container create.
+	"settings": {
+		"terminal.integrated.profiles.linux": {
+			"bash": {
+				"path": "/bin/bash",
+				"args": [
+					"-l",
+				]
+			}
+		},
+		"terminal.integrated.defaultProfile.linux": "bash"
+	},
+	"workspaceMount": "source=${localWorkspaceFolder},target=/home/user/zephyrproject/app,type=bind,consistency=delegated",
+	"workspaceFolder": "/home/user/zephyrproject/app",
+}
