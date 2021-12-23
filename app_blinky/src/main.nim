@@ -13,14 +13,11 @@ import rpc_udp_server
 
 import version 
 import nephyr/drivers/gpio
-# import zephyr_c/cmtoken
-# import zephyr_c/zdevicetree
 
 const
   SLEEP_TIME_MS* = 100
 
 ##  The devicetree node identifier for the "led0" alias.
-
 var
   LED0* = DT_GPIO_LABEL(tok"DT_ALIAS(led0)", tok"gpios")
   PIN* = DT_GPIO_PIN(tok"DT_ALIAS(led0)", tok"gpios")
