@@ -1,18 +1,12 @@
 # import os
-import nativesockets
-import net
-import strutils, strformat
 import os
 
-import nephyr
 import mcu_utils/logging
 
-import taskServer
-import rpc_server
-import rpc_udp_server
+import nephyr
+import nephyr/drivers/gpio
 
 import version 
-import nephyr/drivers/gpio
 
 const
   SLEEP_TIME_MS* = 100
@@ -41,7 +35,7 @@ proc blinky*() =
 
 
 app_main():
-  echo("Booting main application: " & VERSION)
+  logNotice("Booting main application:", VERSION)
   echo("starting app...")
   echo("threads app...")
 

@@ -1,3 +1,5 @@
+when not defined(nimscript):
+  import system/nimscript
 
 switch("define","release")
 # switch("define","debug")
