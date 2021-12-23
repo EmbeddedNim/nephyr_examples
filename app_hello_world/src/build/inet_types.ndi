@@ -1,7 +1,0 @@
-newInetAddr	newInetAddr__OOZOOZOOZfast95rpcZsrcZfast95rpcZinet95types_60	/home/user/fast_rpc/src/fast_rpc/inet_types.nim	42	5
-result	result	/home/user/fast_rpc/src/fast_rpc/inet_types.nim	42	0
-addressStr	addressStr	/home/user/.choosenim/toolchains/nim-#c17baaefbcff5c207a4e95242fa0790e64ca6c8c/lib/pure/net.nim	453	21
-protocol	protocol	/home/user/.choosenim/toolchains/nim-#c17baaefbcff5c207a4e95242fa0790e64ca6c8c/lib/pure/nativesockets.nim	200	17
-inetDomain	inetDomain__OOZOOZOOZfast95rpcZsrcZfast95rpcZinet95types_119	/home/user/fast_rpc/src/fast_rpc/inet_types.nim	64	5
-result	result	/home/user/fast_rpc/src/fast_rpc/inet_types.nim	64	0
-dest	dest	/home/user/fast_rpc/src/fast_rpc/socketserver/common_handlers.nim	17	29

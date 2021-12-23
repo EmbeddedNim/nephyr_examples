@@ -1,5 +1,0 @@
-expect	expect__OOZOOZOOZfast95rpcZsrcZfast95rpcZroutersZmarshal95json_6	/home/user/fast_rpc/src/fast_rpc/routers/marshal_json.nim	6	5
-e	e	/home/user/.choosenim/toolchains/nim-#c17baaefbcff5c207a4e95242fa0790e64ca6c8c/lib/pure/json.nim	176	18
-fromJson	fromJson__OOZOOZOOZfast95rpcZsrcZfast95rpcZroutersZmarshal95json_25	/home/user/fast_rpc/src/fast_rpc/routers/marshal_json.nim	55	5
-n	n	/home/user/.choosenim/toolchains/nim-#c17baaefbcff5c207a4e95242fa0790e64ca6c8c/lib/pure/json.nim	253	13
-default	default_0	/home/user/.choosenim/toolchains/nim-#c17baaefbcff5c207a4e95242fa0790e64ca6c8c/lib/pure/json.nim	253	26

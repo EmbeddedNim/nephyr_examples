@@ -1,8 +1,0 @@
-
-
-&enet {
-	status = "okay";
-	ptp {
-		status = "okay";
-	};
-};

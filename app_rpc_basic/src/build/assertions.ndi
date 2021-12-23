@@ -1,9 +1,0 @@
-failedAssertImpl	failedAssertImpl__systemZassertions_53	/home/user/.choosenim/toolchains/nim-#c17baaefbcff5c207a4e95242fa0790e64ca6c8c/lib/system/assertions.nim	30	5
-raiseAssert	raiseAssert__systemZassertions_23	/home/user/.choosenim/toolchains/nim-#c17baaefbcff5c207a4e95242fa0790e64ca6c8c/lib/system/assertions.nim	26	5
-msg	msg	/home/user/.choosenim/toolchains/nim-#c17baaefbcff5c207a4e95242fa0790e64ca6c8c/lib/system/assertions.nim	26	18
-sysFatal	sysFatal__systemZassertions_25	/home/user/.choosenim/toolchains/nim-#c17baaefbcff5c207a4e95242fa0790e64ca6c8c/lib/system/fatal.nim	52	7
-message	message	/home/user/.choosenim/toolchains/nim-#c17baaefbcff5c207a4e95242fa0790e64ca6c8c/lib/system/fatal.nim	52	35
-=destroy	eqdestroy___systemZassertions_29	/home/user/.choosenim/toolchains/nim-#c17baaefbcff5c207a4e95242fa0790e64ca6c8c/lib/system/fatal.nim	53	4
-blitTmp	blitTmp	/home/user/.choosenim/toolchains/nim-#c17baaefbcff5c207a4e95242fa0790e64ca6c8c/lib/system/fatal.nim	53	29
-dest	dest	/home/user/.choosenim/toolchains/nim-#c17baaefbcff5c207a4e95242fa0790e64ca6c8c/lib/system/fatal.nim	53	4
-src	src	/home/user/.choosenim/toolchains/nim-#c17baaefbcff5c207a4e95242fa0790e64ca6c8c/lib/system/fatal.nim	53	4
