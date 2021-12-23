@@ -1,6 +1,7 @@
 # Package
 
 version       = "0.1.0"
+author        = "Embedded Nim"
 description   = "Nim wrapper for Zephyr RTOS"
 license       = "Apache-2.0"
 srcDir        = "src"
