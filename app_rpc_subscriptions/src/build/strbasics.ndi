@@ -1,0 +1,8 @@
+setSlice	setSlice__stdZstrbasics_50	/home/user/.choosenim/toolchains/nim-#c17baaefbcff5c207a4e95242fa0790e64ca6c8c/lib/std/strbasics.nim	43	5
+first	first	/home/user/.choosenim/toolchains/nim-#c17baaefbcff5c207a4e95242fa0790e64ca6c8c/lib/std/strbasics.nim	64	6
+last	last	/home/user/.choosenim/toolchains/nim-#c17baaefbcff5c207a4e95242fa0790e64ca6c8c/lib/std/strbasics.nim	65	6
+s	s	/home/user/.choosenim/toolchains/nim-#c17baaefbcff5c207a4e95242fa0790e64ca6c8c/lib/system/strs_v2.nim	172	22
+s	s_2	/home/user/.choosenim/toolchains/nim-#c17baaefbcff5c207a4e95242fa0790e64ca6c8c/lib/system/strs_v2.nim	176	8
+dest	dest	/home/user/.choosenim/toolchains/nim-#c17baaefbcff5c207a4e95242fa0790e64ca6c8c/lib/system/memalloc.nim	17	16
+source	source	/home/user/.choosenim/toolchains/nim-#c17baaefbcff5c207a4e95242fa0790e64ca6c8c/lib/system/memalloc.nim	17	22
+size	size	/home/user/.choosenim/toolchains/nim-#c17baaefbcff5c207a4e95242fa0790e64ca6c8c/lib/system/memalloc.nim	17	39

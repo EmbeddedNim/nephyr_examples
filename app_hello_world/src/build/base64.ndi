@@ -1,0 +1,11 @@
+cb64	cb64__pureZbase5452_4	/home/user/.choosenim/toolchains/nim-#c17baaefbcff5c207a4e95242fa0790e64ca6c8c/lib/pure/base64.nim	70	2
+cb64safe	cb64safe__pureZbase5452_5	/home/user/.choosenim/toolchains/nim-#c17baaefbcff5c207a4e95242fa0790e64ca6c8c/lib/pure/base64.nim	71	2
+encode	encode__pureZbase5452_42	/home/user/.choosenim/toolchains/nim-#c17baaefbcff5c207a4e95242fa0790e64ca6c8c/lib/pure/base64.nim	165	5
+result	result	/home/user/.choosenim/toolchains/nim-#c17baaefbcff5c207a4e95242fa0790e64ca6c8c/lib/pure/base64.nim	165	0
+lookupTable	lookupTable	/home/user/.choosenim/toolchains/nim-#c17baaefbcff5c207a4e95242fa0790e64ca6c8c/lib/pure/base64.nim	141	10
+inputIndex`gensym45	inputIndexX60gensym45_	/home/user/.choosenim/toolchains/nim-#c17baaefbcff5c207a4e95242fa0790e64ca6c8c/lib/pure/base64.nim	88	4
+outputIndex`gensym45	outputIndexX60gensym45_	/home/user/.choosenim/toolchains/nim-#c17baaefbcff5c207a4e95242fa0790e64ca6c8c/lib/pure/base64.nim	89	4
+inputEnds`gensym45	inputEndsX60gensym45_	/home/user/.choosenim/toolchains/nim-#c17baaefbcff5c207a4e95242fa0790e64ca6c8c/lib/pure/base64.nim	90	4
+n`gensym45	nX60gensym45_	/home/user/.choosenim/toolchains/nim-#c17baaefbcff5c207a4e95242fa0790e64ca6c8c/lib/pure/base64.nim	91	4
+b`gensym45	bX60gensym45_	/home/user/.choosenim/toolchains/nim-#c17baaefbcff5c207a4e95242fa0790e64ca6c8c/lib/pure/base64.nim	92	4
+padding`gensym45	paddingX60gensym45_	/home/user/.choosenim/toolchains/nim-#c17baaefbcff5c207a4e95242fa0790e64ca6c8c/lib/pure/base64.nim	116	6

@@ -1,0 +1,16 @@
+urandom	urandom__stdZsysrand_45	/home/user/.choosenim/toolchains/nim-#c17baaefbcff5c207a4e95242fa0790e64ca6c8c/lib/std/sysrand.nim	305	5
+result	result	/home/user/.choosenim/toolchains/nim-#c17baaefbcff5c207a4e95242fa0790e64ca6c8c/lib/std/sysrand.nim	305	0
+ret	ret	/home/user/.choosenim/toolchains/nim-#c17baaefbcff5c207a4e95242fa0790e64ca6c8c/lib/std/sysrand.nim	318	8
+urandomInternalImpl	urandomInternalImpl__stdZsysrand_21	/home/user/.choosenim/toolchains/nim-#c17baaefbcff5c207a4e95242fa0790e64ca6c8c/lib/std/sysrand.nim	299	5
+dest	dest	/home/user/.choosenim/toolchains/nim-#c17baaefbcff5c207a4e95242fa0790e64ca6c8c/lib/std/sysrand.nim	299	25
+result	result	/home/user/.choosenim/toolchains/nim-#c17baaefbcff5c207a4e95242fa0790e64ca6c8c/lib/std/sysrand.nim	299	0
+size`gensym0	sizeX60gensym0_	/home/user/.choosenim/toolchains/nim-#c17baaefbcff5c207a4e95242fa0790e64ca6c8c/lib/std/sysrand.nim	71	8
+chunks`gensym0	chunksX60gensym0_	/home/user/.choosenim/toolchains/nim-#c17baaefbcff5c207a4e95242fa0790e64ca6c8c/lib/std/sysrand.nim	76	6
+left`gensym0	leftX60gensym0_	/home/user/.choosenim/toolchains/nim-#c17baaefbcff5c207a4e95242fa0790e64ca6c8c/lib/std/sysrand.nim	77	6
+i`gensym0	iX60gensym0_	/home/user/.choosenim/toolchains/nim-#c17baaefbcff5c207a4e95242fa0790e64ca6c8c/lib/std/sysrand.nim	79	8
+i	i	/home/user/.choosenim/toolchains/nim-#c17baaefbcff5c207a4e95242fa0790e64ca6c8c/lib/system/iterators_1.nim	119	6
+readBytes`gensym0	readBytesX60gensym0_	/home/user/.choosenim/toolchains/nim-#c17baaefbcff5c207a4e95242fa0790e64ca6c8c/lib/std/sysrand.nim	80	10
+getRandomImpl	getRandomImpl__stdZsysrand_17	/home/user/.choosenim/toolchains/nim-#c17baaefbcff5c207a4e95242fa0790e64ca6c8c/lib/std/sysrand.nim	216	7
+p	p	/home/user/.choosenim/toolchains/nim-#c17baaefbcff5c207a4e95242fa0790e64ca6c8c/lib/std/sysrand.nim	216	21
+size	size	/home/user/.choosenim/toolchains/nim-#c17baaefbcff5c207a4e95242fa0790e64ca6c8c/lib/std/sysrand.nim	216	33
+result	result	/home/user/.choosenim/toolchains/nim-#c17baaefbcff5c207a4e95242fa0790e64ca6c8c/lib/std/sysrand.nim	216	2

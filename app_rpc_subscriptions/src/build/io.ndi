@@ -1,0 +1,9 @@
+s	s	/home/user/.choosenim/toolchains/nim-#c17baaefbcff5c207a4e95242fa0790e64ca6c8c/lib/system/io.nim	825	10
+i	i	/home/user/.choosenim/toolchains/nim-#c17baaefbcff5c207a4e95242fa0790e64ca6c8c/lib/system/iterators.nim	8	6
+i	i	/home/user/.choosenim/toolchains/nim-#c17baaefbcff5c207a4e95242fa0790e64ca6c8c/lib/system/chcks.nim	22	22
+n	n	/home/user/.choosenim/toolchains/nim-#c17baaefbcff5c207a4e95242fa0790e64ca6c8c/lib/system/chcks.nim	22	25
+s	s	/home/user/.choosenim/toolchains/nim-#c17baaefbcff5c207a4e95242fa0790e64ca6c8c/lib/system/strs_v2.nim	90	22
+result	result	/home/user/.choosenim/toolchains/nim-#c17baaefbcff5c207a4e95242fa0790e64ca6c8c/lib/system/strs_v2.nim	90	0
+setInheritable	setInheritable__systemZio_256	/home/user/.choosenim/toolchains/nim-#c17baaefbcff5c207a4e95242fa0790e64ca6c8c/lib/system/io.nim	357	7
+result	result	/home/user/.choosenim/toolchains/nim-#c17baaefbcff5c207a4e95242fa0790e64ca6c8c/lib/system/io.nim	357	2
+=destroy	eqdestroy___systemZio_99	/home/user/.choosenim/toolchains/nim-#c17baaefbcff5c207a4e95242fa0790e64ca6c8c/lib/system/io.nim	151	20

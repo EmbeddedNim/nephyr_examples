@@ -1,0 +1,5 @@
+{
+	"cortex-debug.armToolchainPrefix": "arm-zephyr-eabi",
+	"cortex-debug.armToolchainPath": "/opt/toolchains/zephyr-sdk-0.12.4/arm-zephyr-eabi/bin/",
+	"BOARD": "nucleo_h745zi_q_m7",
+}

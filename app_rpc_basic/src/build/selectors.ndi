@@ -1,0 +1,11 @@
+=destroy	eqdestroy___pureZselectors_175	/home/user/.choosenim/toolchains/nim-#c17baaefbcff5c207a4e95242fa0790e64ca6c8c/lib/pure/selectors.nim	282	26
+dest	dest	/home/user/.choosenim/toolchains/nim-#c17baaefbcff5c207a4e95242fa0790e64ca6c8c/lib/pure/selectors.nim	282	26
+=destroy	eqdestroy___pureZselectors_190	/home/user/.choosenim/toolchains/nim-#c17baaefbcff5c207a4e95242fa0790e64ca6c8c/lib/pure/selectors.nim	282	26
+verifySelectParams	verifySelectParams__pureZselectors_59	/home/user/.choosenim/toolchains/nim-#c17baaefbcff5c207a4e95242fa0790e64ca6c8c/lib/pure/selectors.nim	321	7
+raiseIOSelectorsError	raiseIOSelectorsError__pureZselectors_169	/home/user/.choosenim/toolchains/nim-#c17baaefbcff5c207a4e95242fa0790e64ca6c8c/lib/pure/selectors.nim	274	7
+msg	msg	/home/user/.choosenim/toolchains/nim-#c17baaefbcff5c207a4e95242fa0790e64ca6c8c/lib/pure/selectors.nim	275	8
+err	err	/home/user/.choosenim/toolchains/nim-#c17baaefbcff5c207a4e95242fa0790e64ca6c8c/lib/pure/selectors.nim	282	8
+blitTmp	blitTmp	/home/user/.choosenim/toolchains/nim-#c17baaefbcff5c207a4e95242fa0790e64ca6c8c/lib/pure/selectors.nim	282	49
+blitTmp	blitTmp_2	/home/user/.choosenim/toolchains/nim-#c17baaefbcff5c207a4e95242fa0790e64ca6c8c/lib/pure/selectors.nim	283	4
+$	dollar___pureZselectors_25	/home/user/.choosenim/toolchains/nim-#c17baaefbcff5c207a4e95242fa0790e64ca6c8c/lib/pure/selectors.nim	252	22
+result	result	/home/user/.choosenim/toolchains/nim-#c17baaefbcff5c207a4e95242fa0790e64ca6c8c/lib/pure/selectors.nim	252	22

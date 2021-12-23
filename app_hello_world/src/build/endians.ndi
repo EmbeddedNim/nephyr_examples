@@ -1,0 +1,4 @@
+swapEndian32	swapEndian32__pureZendians_25	/home/user/.choosenim/toolchains/nim-#c17baaefbcff5c207a4e95242fa0790e64ca6c8c/lib/pure/endians.nim	74	7
+swapEndian16	swapEndian16__pureZendians_37	/home/user/.choosenim/toolchains/nim-#c17baaefbcff5c207a4e95242fa0790e64ca6c8c/lib/pure/endians.nim	85	7
+swapEndian64	swapEndian64__pureZendians_13	/home/user/.choosenim/toolchains/nim-#c17baaefbcff5c207a4e95242fa0790e64ca6c8c/lib/pure/endians.nim	63	7
+bigEndian32	bigEndian32__pureZendians_65	/home/user/.choosenim/toolchains/nim-#c17baaefbcff5c207a4e95242fa0790e64ca6c8c/lib/pure/endians.nim	143	7

@@ -1,0 +1,3 @@
+initLock	initLock__coreZlocks_60	/home/user/.choosenim/toolchains/nim-#devel/lib/core/locks.nim	36	5
+acquire	acquire__coreZlocks_67	/home/user/.choosenim/toolchains/nim-#devel/lib/core/locks.nim	49	5
+release	release__coreZlocks_69	/home/user/.choosenim/toolchains/nim-#devel/lib/core/locks.nim	54	5
