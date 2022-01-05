@@ -17,19 +17,18 @@ const
 proc blinky*() =
   var led0 = initPin(alias"led0", Pins.OUT)
   echo "led0: ", repr led0
+
   var led_state = 0
   while true:
     led0.level(led_state)
     led_state = (led_state + 1) mod 2
-    let dts = rand(10*SLEEP_TIME_MS)
-    os.sleep(dts)
+    os.sleep(SLEEP_TIME_MS)
     printk("blink!\n")
 
 app_main():
   logNotice("Booting main application:", VERSION)
   echo("starting app...")
 
-  randomize()
   try:
     blinky()
   except Exception as e:
