@@ -99,24 +99,23 @@ teensy_i2c1: &lpi2c3 {
 };
 
 
-&lpspi4 {
+&lpspi3 {
 	status = "disabled";
 };
 
-&lpspi3 {
+&lpspi4 {
 	status = "okay";
-	// cs-gpios = <&mikrobus_header 2 GPIO_ACTIVE_LOW>;	/* A5 */
-	cs-gpios = <&gpio1 20 GPIO_ACTIVE_LOW>;	/* A5 */
-  pcs-sck-delay = < 100 >;
-  sck-pcs-delay = < 100 >;
-  transfer-delay = < 200 >;
+	cs-gpios = <&gpio2 0 GPIO_ACTIVE_LOW>;	/* A5 */
+  pcs-sck-delay = < 200 >;
+  sck-pcs-delay = < 200 >;
+  transfer-delay = < 300 >;
 
 	enc424j600@0 {
 		status = "okay";
 		compatible = "microchip,enc424j600";
 		reg = <0>;
 		// spi-max-frequency = <10000000>;
-		spi-max-frequency = <1000000>;
+		spi-max-frequency = <2000000>;
 		int-gpios = <&gpio1 18 GPIO_ACTIVE_LOW>;	/*  */
 		label = "ETH_2";
 	};
