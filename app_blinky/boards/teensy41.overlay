@@ -1,23 +1,4 @@
 
-
-// &enet {
-//   status = "okay";
-//   ptp {
-//     status = "okay";
-//   };
-//   phy {
-//     compatible = "ethernet-phy";
-//     status = "okay";
-//     no-reset;
-//     late_mii_start;
-//     address = <0>;
-//     mdio = <&mdio>;
-//   };
-//   mdio: mdio {
-//     status = "okay";
-//   };
-// };
-
 / {
   teensy4_header: connector {
     #gpio-cells = <2>;
@@ -104,26 +85,11 @@ teensy_i2c1: &lpi2c3 {
 };
 
 &lpspi3 {
-	status = "okay";
-	// cs-gpios = <&mikrobus_header 2 GPIO_ACTIVE_LOW>;	/* A5 */
-	cs-gpios = <&gpio1 20 GPIO_ACTIVE_LOW>;	/* A5 */
-  pcs-sck-delay = < 100 >;
-  sck-pcs-delay = < 100 >;
-  transfer-delay = < 200 >;
-
-	enc424j600@0 {
-		status = "okay";
-		compatible = "microchip,enc424j600";
-		reg = <0>;
-		// spi-max-frequency = <10000000>;
-		spi-max-frequency = <1000000>;
-		int-gpios = <&gpio1 18 GPIO_ACTIVE_LOW>;	/*  */
-		label = "ETH_2";
-	};
+	status = "disabled";
 };
 
 &board_led {
-	status = "disabled";
+	status = "okay";
 };
 
 &lpuart2 {

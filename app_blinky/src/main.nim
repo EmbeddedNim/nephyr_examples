@@ -12,32 +12,20 @@ const
   SLEEP_TIME_MS* = 100
 
 ##  The devicetree node identifier for the "led0" alias.
-var
-  LED0* = DT_GPIO_LABEL(tok"DT_ALIAS(led0)", tok"gpios")
-  PIN* = DT_GPIO_PIN(tok"DT_ALIAS(led0)", tok"gpios")
-  FLAGS* = DT_GPIO_FLAGS(tok"DT_ALIAS(led0)", tok"gpios")
 
 proc blinky*() =
-  var dev: ptr device
-  var led_is_on: bool = true
-  var ret: cint
-  dev = device_get_binding(LED0)
-  if dev == nil:
-    return
-  ret = gpio_pin_configure(dev, PIN, gpio_flags_t(GPIO_OUTPUT_ACTIVE or FLAGS))
-  if ret < 0:
-    return
+  var led0 = initPin(alias"led0", Pins.OUT)
+  echo "led0: ", repr led0
+  var led_state = 0
   while true:
-    discard gpio_pin_set(dev, PIN, led_is_on.cint)
-    led_is_on = not led_is_on
+    led0.level(led_state )
+    led_state = (led_state + 1) mod 2
     os.sleep(SLEEP_TIME_MS)
-    printk("test!\n")
-
+    printk("blink!\n")
 
 app_main():
   logNotice("Booting main application:", VERSION)
   echo("starting app...")
-  echo("threads app...")
 
   try:
     blinky()

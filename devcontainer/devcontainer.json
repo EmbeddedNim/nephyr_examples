@@ -1,14 +1,15 @@
 {
 	// based on: https://github.com/zephyrproject-rtos/zephyr/issues/21119#issuecomment-887309081
 	"name": "Zephyr development environment",
-	"build": {
-		"dockerfile": "Dockerfile",
-		"args": {
-			"FROM_TAG": "v0.21.0",
-			"UID": "${localEnv:UID}",
-			"GID": "${localEnv:GID}",
-		}
-	},
+	// "build": {
+	// 	"dockerfile": "Dockerfile",
+	// 	"args": {
+	// 		"FROM_TAG": "v0.21.0",
+	// 		"UID": "${localEnv:UID}",
+	// 		"GID": "${localEnv:GID}",
+	// 	}
+	// },
+	"image": "zephyr-dev-env:latest",
 	"runArgs": [
 		// https://github.com/microsoft/vscode-remote-release/issues/3920
 		// https://stackoverflow.com/questions/60966580/how-to-access-usb-ports-from-docker-container-on-mac-os
