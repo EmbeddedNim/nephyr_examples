@@ -1,0 +1,7 @@
+/build/
+/build_*/
+
+src/socket_dumb_http
+src/linux_run
+src/output/
+rpc_cli_test
