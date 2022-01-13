@@ -62,6 +62,23 @@ teensy_spi0: &lpspi4 {
   // cs-pin = <teensy4_header 10>;
   // cs-1-pin = <teensy4_header 37>;
   // cs-2-pin = <teensy4_header 36>;
+          status = "okay";
+        // cs-gpios = <&mikrobus_header 2 GPIO_ACTIVE_LOW>;     /* A5 */
+        cs-gpios = <&gpio1 20 GPIO_ACTIVE_LOW>; /* A5 */
+        pcs-sck-delay = < 100 >;
+        sck-pcs-delay = < 100 >;
+        transfer-delay = < 200 >;
+
+        enc424j600@0 {
+                status = "okay";
+                compatible = "microchip,enc424j600";
+                reg = <0>;
+                // spi-max-frequency = <10000000>;
+                spi-max-frequency = <1000000>;
+                int-gpios = <&gpio1 18 GPIO_ACTIVE_LOW>;        /*  */
+                label = "ETH_2";
+        };
+
 };
 teensy_spi1: &lpspi3 {
   // mosi-pin = <teensy4_header 26>;

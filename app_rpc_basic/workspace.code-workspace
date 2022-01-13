@@ -7,13 +7,13 @@
 			"path": "../zephyr"
 		},
 		{
-			"path": "../../nephyr"
+			"path": "../nephyr"
 		},
 		{
-			"path": "../../fast_rpc"
+			"path": "../fast_rpc"
 		},
 		{
-			"path": "../../mcu_utils"
+			"path": "../mcu_utils"
 		}
 	],
 	"settings": {
