@@ -37,7 +37,7 @@ proc run_micros(args: JsonRpcSubsArgs) {.gcsafe.} =
     os.sleep(delay)
 
 # Define RPC Server #
-proc rpc_server*(): RpcRouter =
+proc rpcRegisterMethodsProc*(): RpcRouter =
   var rt = createRpcRouter()
   var subs = JsonRpcSubThreadTable()
 
@@ -51,8 +51,6 @@ proc rpc_server*(): RpcRouter =
 
   rpc(rt, "add") do(a: int, b: int) -> int:
     result = a + b
-
-  return rt
 
 when isMainModule:
   let inetAddrs = [
