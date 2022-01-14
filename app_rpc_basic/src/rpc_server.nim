@@ -1,16 +1,11 @@
 import std/monotimes, std/os, std/json, std/tables
 
-import fast_rpc/socketserver
-import fast_rpc/socketserver/mpack_jrpc_impl
-import fast_rpc/routers/threaded_subscriptions
-
-export socketserver
-export mpack_jrpc_impl
-
 import mcu_utils/logging
 
-import fast_rpc/inet_types
-import msgpack4nim/msgpack2json
+import fast_rpc/socketserver
+import fast_rpc/routers/router_fastrpc
+import fast_rpc/socketserver/fast_rpc_impl
+
 
 const
   VERSION = "1.0.0"
@@ -19,38 +14,49 @@ const
 #include <pthread.h>
 """.}
 
-proc run_micros(args: JsonRpcSubsArgs) {.gcsafe.} = 
-  var subId = args.subid
-  var sender = args.sender
-  let delay = args.data.getInt()
-  echo("micros subs setup: delay: ", delay)
+rpcRegisterMethodsProc(name=initRpcExampleRouter):
+  ## ==== Define an RPC Server ====
+  ## This create a function `initRpcExampleRouter` which creates 
+  ## an RPC router for you. 
 
-  while true:
-    echo "sending mono time: ", "sub: ", $subId, " sender: ", repr(sender)
-    let a = getMonoTime().ticks()
-    var ts = int(a div 1000)
-    var value = %* {"subscription": subId, "result": ts}
-    var msg: string = value.fromJsonNode()
+  proc add(a: int, b: int): int {.rpc.} =
+    result = 1 + a + b
 
-    let res = sender(msg)
-    if not res: break
-    os.sleep(delay)
+  proc addAll(vals: seq[int]): int {.rpc.} =
+    for val in vals:
+      result = result + val
 
-# Define RPC Server #
-proc rpcRegisterMethodsProc*(): RpcRouter =
-  var rt = createRpcRouter()
-  var subs = JsonRpcSubThreadTable()
+  proc multAll(x: int, vals: seq[int]): seq[int] {.rpc.} =
+    result = newSeqOfCap[int](vals.len())
+    for val in vals:
+      result.add val * x
 
-  rpc(rt, "version") do() -> string:
-    result = VERSION
+  proc echos(msg: string): string {.rpc.} =
+    echo("echos: ", "hello ", msg)
+    result = "hello: " & msg
 
-  rpc_subscribe(rt, "micros_subscribe") do(delay: int) -> JsonNode:
-    var subid = subs.subscribeWithThread(context, run_micros, % delay)
-    echo("micros subs called: ", delay)
-    result = % subid
+  proc echorepeat(msg: string, count: int): string {.rpc.} =
+    let rmsg = "hello " & msg
+    for i in 0..count:
+      echo("echos: ", rmsg)
+      # discard context.sender(rmsg)
+      discard rpcReply(rmsg)
+      os.sleep(400)
+    result = "k bye"
 
-  rpc(rt, "add") do(a: int, b: int) -> int:
-    result = a + b
+  proc microspub(count: int): int {.rpcPublisherThread().} =
+    # var subid = subs.subscribeWithThread(context, run_micros, % delay)
+    while true:
+      var ts = int(getMonoTime().ticks() div 1000)
+      discard rpcPublish(ts)
+      os.sleep(count)
+
+  proc testerror(msg: string): string {.rpc.} =
+    echo("test error: ", "what is your favorite color?")
+    if msg != "Blue":
+      raise newException(ValueError, "wrong answer!")
+    result = "correct: " & msg
+
 
 when isMainModule:
   let inetAddrs = [
@@ -58,5 +64,11 @@ when isMainModule:
     newInetAddr("0.0.0.0", 5555, Protocol.IPPROTO_TCP),
   ]
 
-  let router = rpc_server()
-  startSocketServer(inetAddrs, newMpackJRpcServer(router, prefixMsgSize=true))
+  let router = initRpcExampleRouter()
+  # # Alternatively, create a router and append rpc methods
+  # var router = createFastRpcRouter()
+  # router.initRpcExampleRouter() # add rpc methods
+
+  # It's possible to swap out `fast_rpc` for json-rpc or json-rpc/msgpack hybrid
+  startSocketServer(inetAddrs, newFastRpcServer(router, prefixMsgSize=true))
+
