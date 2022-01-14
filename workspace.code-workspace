@@ -4,7 +4,7 @@
 			"path": "../app"
 		},
 		{
-			"path": "../zephyr"
+			"path": "../zephyrproject/zephyr"
 		},
 		{
 			"path": "../nephyr"
@@ -17,8 +17,5 @@
 		}
 	],
 	"settings": {
-		"files.associations": {
-			"eth_enc424j600_priv.h": "c"
-		}
 	},
 }

@@ -46,6 +46,6 @@
 		},
 		"terminal.integrated.defaultProfile.linux": "bash"
 	},
-	"workspaceMount": "source=${localWorkspaceFolder},target=/home/user/zephyrproject/app,type=bind,consistency=delegated",
-	"workspaceFolder": "/home/user/zephyrproject/app",
+	"workspaceMount": "source=${localWorkspaceFolder},target=/home/user/app,type=bind,consistency=delegated",
+	"workspaceFolder": "/home/user/app",
 }
