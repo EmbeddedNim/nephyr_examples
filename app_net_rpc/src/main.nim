@@ -1,26 +1,24 @@
 import nephyr
 import mcu_utils/logging
 
+import fast_rpc/socketserver
+import fast_rpc/routers/router_fastrpc
+import fast_rpc/socketserver/fast_rpc_impl
+
 import rpc_server
-
-import version 
-
-{.emit: """/*INCLUDESECTION*/
-#include <pthread.h>
-""".}
-
+import version
 
 app_main():
   logNotice("Booting main application: " & VERSION)
 
   try:
-    let router = rpc_server()
+    var router = initRpcExampleRouter()
+
     let inetAddrs = [
       newInetAddr("0.0.0.0", 5555, Protocol.IPPROTO_UDP),
       newInetAddr("0.0.0.0", 5555, Protocol.IPPROTO_TCP),
     ]
-
-    startSocketServer(inetAddrs, newMpackJRpcServer(router, prefixMsgSize=true))
+    startSocketServer(inetAddrs, newFastRpcServer(router, prefixMsgSize=true))
 
   except Exception as e:
     echo "[main]: exception: ", getCurrentExceptionMsg()

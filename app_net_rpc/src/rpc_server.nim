@@ -6,18 +6,11 @@ import fast_rpc/socketserver
 import fast_rpc/routers/router_fastrpc
 import fast_rpc/socketserver/fast_rpc_impl
 
+import version
 
-const
-  VERSION = "1.0.0"
 
-{.emit: """/*INCLUDESECTION*/
-#include <pthread.h>
-""".}
-
+# Define RPC Server #
 rpcRegisterMethodsProc(name=initRpcExampleRouter):
-  ## ==== Define an RPC Server ====
-  ## This create a function `initRpcExampleRouter` which creates 
-  ## an RPC router for you. 
 
   proc add(a: int, b: int): int {.rpc.} =
     result = 1 + a + b
@@ -56,19 +49,3 @@ rpcRegisterMethodsProc(name=initRpcExampleRouter):
     if msg != "Blue":
       raise newException(ValueError, "wrong answer!")
     result = "correct: " & msg
-
-
-when isMainModule:
-  let inetAddrs = [
-    newInetAddr("0.0.0.0", 5555, Protocol.IPPROTO_UDP),
-    newInetAddr("0.0.0.0", 5555, Protocol.IPPROTO_TCP),
-  ]
-
-  let router = initRpcExampleRouter()
-  # # Alternatively, create a router and append rpc methods
-  # var router = createFastRpcRouter()
-  # router.initRpcExampleRouter() # add rpc methods
-
-  # It's possible to swap out `fast_rpc` for json-rpc or json-rpc/msgpack hybrid
-  startSocketServer(inetAddrs, newFastRpcServer(router, prefixMsgSize=true))
-
