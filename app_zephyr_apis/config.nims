@@ -34,8 +34,10 @@ elif memoryConfig == "standalone":
 if getEnv("BOARD") in ["teensy40", "teensy41"]:
   switch("define", "zephyrUseLibcMalloc")
 
-# if getEnv("BOARD") in ["native_posix"]:
-switch("cpu","i386")
+if getEnv("BOARD") in ["native_posix"]:
+  switch("cpu","i386")
+elif getEnv("BOARD") in ["native_posix_64"]:
+  switch("cpu","amd64")
 
 # else:
 # switch("cpu","arm64")
