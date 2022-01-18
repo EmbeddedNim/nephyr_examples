@@ -5,7 +5,7 @@ import std/os
 import mcu_utils/logging
 
 import nephyr
-import nephyr/drivers/gpio
+import nephyr/core/zfifo
 
 import version 
 
@@ -23,6 +23,7 @@ app_main():
 
   try:
     runAtomics()
+    testsZkFifo()
   except Exception as e:
     echo "[main]: exception: ", getCurrentExceptionMsg()
     let stes = getStackTraceEntries(e)
