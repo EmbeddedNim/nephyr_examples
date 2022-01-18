@@ -11,3 +11,4 @@ rpc_cli_test
 /zephyr/*
 /BOARD
 
+flash.bin

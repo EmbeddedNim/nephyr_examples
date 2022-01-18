@@ -16,7 +16,9 @@ const
 ##  The devicetree node identifier for the "led0" alias.
 
 proc blinky*() =
+  echo "start blinking"
   var led0 = initPin(alias"led0", Pins.OUT)
+  echo "init blinking"
   echo "led0: ", repr led0
 
   var led_state = 0
@@ -33,7 +35,7 @@ app_main():
   echo("starting app...")
 
   try:
-    runAtomics()
+    # runAtomics()
     blinky()
   except Exception as e:
     echo "[main]: exception: ", getCurrentExceptionMsg()
