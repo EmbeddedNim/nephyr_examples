@@ -1,8 +1,8 @@
 when not defined(nimscript):
   import system/nimscript
 
-switch("define","release")
-# switch("define","debug")
+# switch("define","release")
+switch("define","debug")
 # switch("define","danger")
 
 switch("os","zephyr")
