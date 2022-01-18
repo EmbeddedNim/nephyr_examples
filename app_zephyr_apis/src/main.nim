@@ -9,39 +9,27 @@ import nephyr/drivers/gpio
 
 import version 
 
+import apis/atomics
+
 const
   SLEEP_TIME_MS* = 100
   MAX_SLEEP_MS* = 1_400
 
 ##  The devicetree node identifier for the "led0" alias.
 
-proc blinky*() =
-  echo "start blinking"
-  var led0 = initPin(alias"led0", Pins.OUT)
-  echo "init blinking"
-  echo "led0: ", repr led0
-
-  var led_state = 0
-  var delay = 0'u
-  while true:
-    led0.level(led_state)
-    led_state = (led_state + 1) mod 2
-    delay = (delay + SLEEP_TIME_MS) mod MAX_SLEEP_MS
-    os.sleep(delay.int)
-    logInfo("blink!", "delay:", delay)
-
 app_main():
   logNotice("Booting main application:", VERSION)
   echo("starting app...")
 
   try:
-    # runAtomics()
-    blinky()
+    runAtomics()
   except Exception as e:
     echo "[main]: exception: ", getCurrentExceptionMsg()
     let stes = getStackTraceEntries(e)
     for ste in stes:
       echo "[main]: ", $ste
     
-  echo "unknown error causing reboot"
+    echo "unknown error causing reboot"
+    sysReboot()
+
   sysReboot()
