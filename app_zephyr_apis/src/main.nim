@@ -16,6 +16,7 @@ const
   MAX_SLEEP_MS* = 1_400
 
 ##  The devicetree node identifier for the "led0" alias.
+testsZkFifo()
 
 app_main():
   logNotice("Booting main application:", VERSION)
@@ -23,7 +24,7 @@ app_main():
 
   try:
     runAtomics()
-    testsZkFifo()
+    runTestsZkFifo()
   except Exception as e:
     echo "[main]: exception: ", getCurrentExceptionMsg()
     let stes = getStackTraceEntries(e)

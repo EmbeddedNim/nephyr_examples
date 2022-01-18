@@ -17,5 +17,8 @@
 		}
 	],
 	"settings": {
+		"files.associations": {
+			"spinlock.h": "c"
+		}
 	},
 }
