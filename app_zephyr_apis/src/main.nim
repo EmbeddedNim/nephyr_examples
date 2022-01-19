@@ -23,8 +23,9 @@ app_main():
   echo("starting app...")
 
   runAtomics()
-  # runTestsZkFifo()
-  runTestsZkFifoThreaded()
+  runTestsZkFifo()
+  runTestsZkFifoThreaded(20, 100)
+  runTestsZkFifoThreaded(7, 900)
 
   echo "[testing done]"
 
