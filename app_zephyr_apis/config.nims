@@ -36,11 +36,12 @@ if getEnv("BOARD") in ["teensy40", "teensy41"]:
 
 if getEnv("BOARD") in ["native_posix"]:
   switch("cpu","i386")
+  switch("define","nimThreadStackSize:17408")
 elif getEnv("BOARD") in ["native_posix_64"]:
   switch("cpu","amd64")
-
-# else:
-# switch("cpu","arm64")
+  switch("define","nimThreadStackSize:17408")
+else:
+  switch("cpu","arm")
 
 
 # Basic settings

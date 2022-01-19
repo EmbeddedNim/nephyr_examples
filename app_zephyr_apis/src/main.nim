@@ -22,16 +22,11 @@ app_main():
   logNotice("Booting main application:", VERSION)
   echo("starting app...")
 
-  try:
-    runAtomics()
-    runTestsZkFifo()
-  except Exception as e:
-    echo "[main]: exception: ", getCurrentExceptionMsg()
-    let stes = getStackTraceEntries(e)
-    for ste in stes:
-      echo "[main]: ", $ste
-    
-    echo "unknown error causing reboot"
-    sysReboot()
+  runAtomics()
+  # runTestsZkFifo()
+  runTestsZkFifoThreaded()
 
-  sysReboot()
+  echo "[testing done]"
+
+  # sysReboot()
+  sysPanic()

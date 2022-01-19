@@ -38,6 +38,11 @@
 	status = "okay";
 };
 
+// &arduino_serial {
+// 	current-speed = <115200>;
+// 	status = "okay";
+// };
+
 &flash0 {
 
 	partitions {
