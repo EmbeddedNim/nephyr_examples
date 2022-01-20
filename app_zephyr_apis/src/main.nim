@@ -9,8 +9,11 @@ import nephyr/core/zfifo
 
 import version 
 
-import apis/atomics
-import apis/channels
+import apis/ta_atomics
+import apis/ta_channels
+
+when BOARD != "native_posix":
+  import apis/ta_gpios
 
 const
   SLEEP_TIME_MS* = 100
@@ -23,11 +26,14 @@ app_main():
   logNotice("Booting main application:", VERSION)
   echo("starting app...")
 
+  when BOARD != "native_posix":
+    runTestPins()
+
   runAtomics()
   runTestsChannelThreaded(20, 100)
   runTestsZkFifo()
-  echo "CONFIG BOARD: ", CONFIG_BOARD
-  when CONFIG_BOARD != "native_posix":
+  echo "CONFIG BOARD: ", BOARD
+  when BOARD != "native_posix":
     runTestsZkFifoThreaded(20, 100)
     runTestsZkFifoThreaded(7, 900)
 

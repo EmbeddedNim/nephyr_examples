@@ -23,6 +23,26 @@
 		};
 	};
 
+	gpio_keys {
+		compatible = "gpio-keys";
+		status = "okay";
+		user_button: button_0 {
+			gpios = <&gpioc 13 GPIO_ACTIVE_HIGH>;
+			label = "User_SB1";
+			status = "okay";
+		};
+		user_button_2: button_2 {
+			gpios = <&gpioe 13 0>;	/* D3 */
+			label = "User SB2";
+			status = "okay";
+		};
+		user_button_3: button_3 {
+			gpios = <&gpiog 14 0>;	/* D2 */
+			label = "User SB3";
+			status = "okay";
+		};
+	};
+
 	aliases {
 		led0 = &green_led;
 		pwm-led0 = &red_pwm_led;
