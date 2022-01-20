@@ -24,12 +24,14 @@ app_main():
   echo("starting app...")
 
   runAtomics()
-  runTestsZkFifo()
-  runTestsZkFifoThreaded(20, 100)
-  runTestsZkFifoThreaded(7, 900)
   runTestsChannelThreaded(20, 100)
+  runTestsZkFifo()
+  echo "CONFIG BOARD: ", CONFIG_BOARD
+  when CONFIG_BOARD != "native_posix":
+    runTestsZkFifoThreaded(20, 100)
+    runTestsZkFifoThreaded(7, 900)
 
   echo "[testing done]"
 
   # sysReboot()
-  sysPanic()
+  sysPanic(K_ERR_KERNEL_OOPS)
