@@ -27,7 +27,7 @@ app_main():
   runTestsZkFifo()
   runTestsZkFifoThreaded(20, 100)
   runTestsZkFifoThreaded(7, 900)
-  runTestsChannelThreaded(7, 900)
+  runTestsChannelThreaded(20, 100)
 
   echo "[testing done]"
 
