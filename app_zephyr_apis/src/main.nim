@@ -10,6 +10,7 @@ import nephyr/core/zfifo
 import version 
 
 import apis/atomics
+import apis/channels
 
 const
   SLEEP_TIME_MS* = 100
@@ -26,6 +27,7 @@ app_main():
   runTestsZkFifo()
   runTestsZkFifoThreaded(20, 100)
   runTestsZkFifoThreaded(7, 900)
+  runTestsChannelThreaded(7, 900)
 
   echo "[testing done]"
 
