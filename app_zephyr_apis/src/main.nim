@@ -31,7 +31,7 @@ app_main():
     runTestsZkFifoThreaded(20, 100)
     runTestsZkFifoThreaded(7, 900)
 
-  echo "[testing done]"
+  echo "[[testing done]]"
 
   # sysReboot()
   sysPanic(K_ERR_KERNEL_OOPS)
