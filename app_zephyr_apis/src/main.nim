@@ -25,7 +25,7 @@ testsZkFifo() # template to setup zk fifo tests
 const EMULATED_BOARDS = [
   "native_posix",
   "native_posix_64",
-  "qemu_cortex_m3",
+  # "qemu_cortex_m3",
 ]
 
 when BOARD in ["qemu_cortex_m3"]:

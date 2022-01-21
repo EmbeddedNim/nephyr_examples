@@ -9,7 +9,7 @@ proc runTestPins*() =
   echo "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< "
   echo "[GPIO] Begin "
 
-  let pin10 = initPin(alias"led0", Pins.OUT)
+  let pin10 = initPin(alias"gpio0", Pins.OUT)
   echo "pin10: ", repr pin10
 
   for dev in listAllStaticDevices():
