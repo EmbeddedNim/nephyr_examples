@@ -26,16 +26,18 @@ app_main():
   logNotice("Booting main application:", VERSION)
   echo("starting app...")
 
-  when BOARD != "native_posix":
+  when not BOARD.startsWith("native_posix"):
     runTestPins()
 
   runAtomics()
   runTestsChannelThreaded(20, 100)
   runTestsZkFifo()
-  echo "CONFIG BOARD: ", BOARD
-  when BOARD != "native_posix":
-    runTestsZkFifoThreaded(20, 100)
-    runTestsZkFifoThreaded(7, 900)
+
+  # echo "CONFIG BOARD: ", BOARD
+  runTestsZkFifoThreaded(20, 100)
+  # echo "CONFIG BOARD: ", BOARD
+  when not BOARD.startsWith("native_posix"):
+    runTestsZkFifoThreaded(7, 1200)
 
   echo "[[testing done]]"
 
