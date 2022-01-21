@@ -12,8 +12,24 @@ switch("gc","arc")
 
 switch("define", "McuUtilsLoggingLevel:lvlInfo")
 
-const memoryConfig = "default"
-# const memory = "malloc"
+# for these boards use the C lib malloc, not the kernel k_malloc
+if getEnv("BOARD") in ["teensy40", "teensy41"]:
+  switch("define", "zephyrUseLibcMalloc")
+
+if getEnv("BOARD") in ["native_posix"]:
+  switch("cpu","i386")
+  switch("define","nimThreadStackSize:17408")
+elif getEnv("BOARD") in ["native_posix_64"]:
+  switch("cpu","amd64")
+  switch("define","nimThreadStackSize:17408")
+elif getEnv("BOARD") in ["qemu_cortex_m3"]:
+  switch("define","nimThreadStackSize:4096")
+  switch("cpu","arm")
+else:
+  switch("cpu","arm")
+
+# const memoryConfig = "default"
+const memoryConfig  = "malloc"
 
 when memoryConfig == "default":
   # Use Nim allocator with memory pages from c malloc
@@ -29,19 +45,6 @@ elif memoryConfig == "standalone":
   switch("define","StandaloneHeapSize=24576")
   switch("define","nimPage512")
   switch("define","nimMemAlignTiny")
-
-# for these boards use the C lib malloc, not the kernel k_malloc
-if getEnv("BOARD") in ["teensy40", "teensy41"]:
-  switch("define", "zephyrUseLibcMalloc")
-
-if getEnv("BOARD") in ["native_posix"]:
-  switch("cpu","i386")
-  switch("define","nimThreadStackSize:17408")
-elif getEnv("BOARD") in ["native_posix_64"]:
-  switch("cpu","amd64")
-  switch("define","nimThreadStackSize:17408")
-else:
-  switch("cpu","arm")
 
 
 # Basic settings

@@ -53,5 +53,4 @@ app_main():
 
   echo "[[testing done]]"
 
-  # sysReboot()
   sysPanic(K_ERR_KERNEL_OOPS)
