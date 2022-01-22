@@ -58,3 +58,6 @@ proc runTestsChannelThreaded*(ncnt, tsrand: int) =
   joinThreads(thrp, thrc)
   echo "[Channel] Done joined "
   echo ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> "
+
+when isMainModule:
+  runTestsChannelThreaded(7, 120)
