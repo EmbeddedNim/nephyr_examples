@@ -12,6 +12,7 @@
 		zephyr,dtcm = &dtcm;
 		zephyr,sram = &sram0;
 		zephyr,flash = &flash0;
+		// zephyr,code-partition = &slot0_partition;
 	};
 
 	pwmleds {
@@ -30,11 +31,9 @@
 	};
 };
 
-
 &usart1 {
 	pinctrl-0 = <&usart1_tx_pb6 &usart1_rx_pb7>;
 	current-speed = <115200>;
-	pinctrl-names = "default";
 	status = "okay";
 };
 
@@ -48,23 +47,26 @@
 
 		boot_partition: partition@0 {
 			label = "mcuboot";
-			reg = <0x00000000 0x00010000>;
+			reg = <0x00000000 0x0000A000>;
 			read-only;
 		};
 
 		slot0_partition: partition@A000 {
 			label = "image-0";
 			reg = <0x0000A000 0x00038000>;
+			// reg = <0x00000000 0x00038000>;
 		};
 		slot1_partition: partition@42000 {
 			label = "image-1";
 			reg = <0x00042000 0x00038000>;
 		};
-
 		scratch_partition: partition@7a000  {
 			label = "image-scratch";
 			reg = <0x0007a000 0x00012000>;
 		};
-
+		storage_partition: partition@8C000 {
+			label = "storage";
+			reg = <0x0008C000 0x00009400>;
+		};
 	};
 };
