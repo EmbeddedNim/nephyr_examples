@@ -14,7 +14,6 @@ const
   MAX_SLEEP_MS* = 1_400
 
 ##  The devicetree node identifier for the "led0" alias.
-
 proc blinky*() =
   var led0 = initPin(alias"led0", Pins.OUT)
   echo "led0: ", repr led0
