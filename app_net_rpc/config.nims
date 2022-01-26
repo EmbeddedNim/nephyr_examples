@@ -1,46 +1,40 @@
-import strutils
+when not defined(nimscript):
+  import system/nimscript
 
-# patchFile("stdlib", "net", "src/net_fix")
+switch("define","release")
+# switch("define","debug")
+# switch("define","danger")
 
---os:zephyr
---gc:arc
---overflowChecks:on
---cpu:arm
-# --define:danger
-# --define:release
---define:debug
+switch("os","zephyr")
+switch("gc","arc")
+# switch("define", "nimArcDebug")
+# switch("define", "traceArc")
 
-# -d:McuUtilsLoggingLevel="lvlWarn"
-# switch("define", "McuUtilsLoggingLevel:lvlWarn")
-switch("define", "McuUtilsLoggingLevel:lvlDebug")
+switch("define", "McuUtilsLoggingLevel:lvlInfo")
 
-## [took: 16.099 millis]
-# -d:use_malloc
+const memoryConfig = "default"
+# const memory = "malloc"
 
-## [took: 16.526 millis]
-switch("define", "nimAllocPagesViaMalloc")
-switch("define", "nimThreadStackSize=16384")
-switch("define", "nimPage512")
-switch("define", "nimMemAlignTiny")
+when memoryConfig == "default":
+  # Use Nim allocator with memory pages from c malloc
+  switch("define", "nimAllocPagesViaMalloc")
+  switch("define","nimThreadStackSize:16384")
+  switch("define","nimPage512")
+  switch("define","nimMemAlignTiny")
 
-switch("define", "strictFuncs")
+elif memoryConfig == "malloc":
+  # Use Nim allocator with memory pages from c malloc
+  switch("define","use_malloc")
+elif memoryConfig == "standalone":
+  switch("define","StandaloneHeapSize=24576")
+  switch("define","nimPage512")
+  switch("define","nimMemAlignTiny")
 
-if getEnv("BOARD") in ["teensy40", "teensy41"]:
-  switch("define", "zephyrUseLibcMalloc")
 
-# -d:StandaloneHeapSize=24576
-# -d:StandaloneHeapSize=65792
-# -d:cpu16
-if getEnv("BOARD").startsWith("nucleo_h7"):
-  switch("define", "zephyrUseLibcMalloc")
-
-# -d:nimArcDebug
-# -d:traceArc
-
---define:no_signal_handler
---debugger:native
-# --debugger:off
---threads:on
---tls_emulation:off
-# --hint:conf:on
-# --hint:SuccessX:off
+# Basic settings
+switch("overflowChecks","on")
+switch("cpu","arm")
+switch("define", "no_signal_handler")
+switch("debugger", "native")
+switch("threads", "on")
+switch("tls_emulation", "off")
