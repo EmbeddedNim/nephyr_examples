@@ -44,7 +44,7 @@ proc runTestsChannel*() =
   consumerThread((myFifo, 10, 100))
 
 proc runTestsChannelThreaded*(ncnt, tsrand: int) =
-  echo "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< "
+  echo "\n<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< "
   echo "[Channel] Begin "
   randomize()
   myFifo.open(ncnt)

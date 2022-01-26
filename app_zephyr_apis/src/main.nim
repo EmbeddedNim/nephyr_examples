@@ -50,12 +50,14 @@ app_main():
   echo("TS: " & repr(millis()))
   runTestsZkFifo()
 
-  # echo "CONFIG BOARD: ", BOARD
   echo("TS: " & repr(millis()))
   runTestsZkFifoThreaded(20, 100)
-  # echo "CONFIG BOARD: ", BOARD
   when not BOARD.startsWith("native_posix"):
+    echo "[runTestsZkFifoThreaded: out of order tests]"
     runTestsZkFifoThreaded(7, 1200)
+
+  when CONFIG_NET:
+    runTestsSocketPairsThreaded(7, 1200)
 
   echo("TS: " & repr(millis()))
   echo "[[testing done]]"

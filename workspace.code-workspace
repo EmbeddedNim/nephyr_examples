@@ -14,6 +14,9 @@
 		},
 		{
 			"path": "../mcu_utils"
+		},
+		{
+			"path": "../.choosenim/toolchains/nim-#devel"
 		}
 	],
 	"settings": {

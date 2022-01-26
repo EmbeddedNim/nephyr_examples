@@ -30,11 +30,6 @@ elif memoryConfig == "standalone":
   switch("define","nimPage512")
   switch("define","nimMemAlignTiny")
 
-# for these boards use the C lib malloc, not the kernel k_malloc
-# if getEnv("BOARD") in ["teensy40", "teensy41", "nucleo_h745zi_q_m7"]:
-  # switch("define", "zephyrUseLibcMalloc")
-
-
 # Basic settings
 switch("overflowChecks","on")
 switch("cpu","arm")
