@@ -13,6 +13,9 @@ import version
 import apis/ta_atomics
 import apis/ta_channels
 
+when CONFIG_NETWORKING:
+  import apis/ta_socketpairs
+
 const
   SLEEP_TIME_MS* = 100
   MAX_SLEEP_MS* = 1_400
@@ -47,6 +50,10 @@ app_main():
   runAtomics()
   echo("TS: " & repr(millis()))
   runTestsChannelThreaded(20, 100)
+
+  when CONFIG_NETWORKING:
+    runTestsSocketPairsThreaded(12, 120)
+
   echo("TS: " & repr(millis()))
   runTestsZkFifo()
 
@@ -55,9 +62,6 @@ app_main():
   when not BOARD.startsWith("native_posix"):
     echo "[runTestsZkFifoThreaded: out of order tests]"
     runTestsZkFifoThreaded(7, 1200)
-
-  when CONFIG_NET:
-    runTestsSocketPairsThreaded(7, 1200)
 
   echo("TS: " & repr(millis()))
   echo "[[testing done]]"

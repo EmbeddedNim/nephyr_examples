@@ -14,11 +14,11 @@ proc producerThread(args: (Socket, int, int)) =
   for i in 0..<count:
     os.sleep(rand(tsrand))
     # /* create data item to send */
-    var txData = 1234 + 100 * i
+    var txData = 1234 + 100000 * i
 
     # /* send data to consumers */
     echo "-> Producer: tx_data: putting: ", i, " -> ", repr(txData)
-    sock.send($txData&"\n")
+    sock.send("some data: " & $txData&"\n")
     echo "-> Producer: tx_data: sent: ", i
   echo "Done Producer: "
   
@@ -32,13 +32,6 @@ proc consumerThread(args: (Socket, int, int)) =
     os.sleep(rand(tsrand))
     echo "<- Consumer: rx_data: wait: ", i
     var rxData = sock.recvLine()
-    # var
-    #   rxData = newString(100)
-    #   ipaddr: IpAddress
-    #   port: Port
-
-    # discard sock.recvFrom(rxData, rxData.len(), ipaddr, port, 0)
-    # dump((ipaddr, port))
 
     echo "<- Consumer: rx_data: got: ", i, " <- ", repr(rxData)
 
@@ -48,7 +41,8 @@ proc runTestsSocketPairsThreaded*(ncnt, tsrand: int) =
   echo "\n<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< "
   echo "[SocketPair] Begin "
   randomize()
-  let sockets = newSocketPair(sockType = SockType.SOCK_DGRAM, protocol = Protocol.IPPROTO_IP)
+  let sockets = newSocketPair()
+  # let sockets = newSocketPair(sockType = SockType.SOCK_STREAM, protocol = Protocol.IPPROTO_IP)
 
   var thrp: Thread[(Socket, int, int)]
   var thrc: Thread[(Socket, int, int)]
