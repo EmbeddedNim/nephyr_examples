@@ -1,6 +1,7 @@
 import std/monotimes, std/os, std/json, std/tables
 
 import mcu_utils/logging
+import nephyr/times
 
 import fast_rpc/socketserver
 import fast_rpc/routers/router_fastrpc
@@ -37,12 +38,15 @@ rpcRegisterMethodsProc(name=initRpcExampleRouter):
       os.sleep(400)
     result = "k bye"
 
-  proc microspub(count: int): int {.rpcPublisherThread().} =
+  proc microspub(count: int, wait: int): int {.rpcPublisherThread().} =
     # var subid = subs.subscribeWithThread(context, run_micros, % delay)
     while true:
-      var ts = int(getMonoTime().ticks() div 1000)
-      discard rpcPublish(ts)
-      os.sleep(count)
+      var times = newSeqOfCap[int64](30)
+      for i in 0..<count:
+        var ts = int64(getMonoTime().ticks() div 1000)
+        times.add(ts)
+      discard rpcPublish(times)
+      discard delay(wait.Micros)
 
   proc testerror(msg: string): string {.rpc.} =
     echo("test error: ", "what is your favorite color?")

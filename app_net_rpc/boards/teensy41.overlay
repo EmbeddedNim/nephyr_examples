@@ -1,5 +1,31 @@
 
 
+/ {
+	model = "PJRC TEENSY 4.0 board";
+	compatible = "nxp,mimxrt1062";
+
+	aliases {
+		led0 = &board_led;
+	};
+
+	chosen {
+		zephyr,sram = &ocram;
+		zephyr,itcm = &itcm;
+		zephyr,dtcm = &dtcm;
+		zephyr,console = &lpuart4; /* Teensy Pins 0(RX1) 1(TX1) */
+		zephyr,can-primary = &flexcan1; /* Teensy Pins 23(CRX1) 22(CTX1) */
+	};
+
+	leds {
+		compatible = "gpio-leds";
+		board_led: led-1 {
+			gpios = <&gpio2 10 GPIO_ACTIVE_HIGH>;
+			label = "User LED Pin 13";
+		};
+	};
+};
+
+
 // &enet {
 //   status = "okay";
 //   ptp {
@@ -72,36 +98,10 @@ teensy_serial1: &lpuart6 {
 teensy_serial2: &lpuart4 {
   // rx-pin = <teensy4_header 7>;
   // tx-pin = <teensy4_header 8>;
+	status = "okay";
 };
 
 teensy_spi0: &lpspi4 {
-};
-
-&teensy_spi0 {
-	status = "okay";
-	// cs-gpios = <&mikrobus_header 2 GPIO_ACTIVE_LOW>;	/* A5 */
-	cs-gpios = <&gpio1 20 GPIO_ACTIVE_LOW>, <&gpio1 21 GPIO_ACTIVE_LOW>;/* A5 */
-  pcs-sck-delay = < 100 >;
-  sck-pcs-delay = < 100 >;
-  transfer-delay = < 200 >;
-
-	enc424j600@0 {
-		status = "okay";
-		compatible = "microchip,enc424j600";
-		reg = <0>;
-		spi-max-frequency = <1000000>;
-		int-gpios = <&gpio1 18 GPIO_ACTIVE_LOW>;	/*  */
-		label = "ETH_2";
-	};
-
-	adc1: ads1x1x@1 {
-		status = "okay";
-		compatible = "ti,ads1x1x";
-		reg = <1>;
-		spi-max-frequency = <1000000>;
-		int-gpios = <&gpio1 18 GPIO_ACTIVE_HIGH>;
-		label = "my_adc_0";
-	};
 };
 
 teensy_spi1: &lpspi3 {
@@ -119,6 +119,26 @@ teensy_i2c1: &lpi2c3 {
   // scl-pin = <teensy4_header 16>;
   // sda-pin = <teensy4_header 17>;
 };
+
+// &teensy_spi0 {
+mikrobus_spi: &teensy_spi1 {
+	status = "okay";
+	cs-gpios = <&gpio2 0 GPIO_ACTIVE_LOW>;/* A5 */
+  // pcs-sck-delay = < 100 >;
+  // sck-pcs-delay = < 100 >;
+  // transfer-delay = < 200 >;
+
+	eth_click: eth_click@0 {
+		compatible = "microchip,enc28j60";
+		reg = <0x0>;
+		local-mac-address = [00 00 00 01 02 03];
+		/* Errata B7/1 specifies min 8Mhz, 20MHz max according to RM */
+		spi-max-frequency = <8000000>;
+		int-gpios = <&gpio1 18 GPIO_ACTIVE_LOW>;	/* INT */
+		label = "ETH_CLICK";
+	};
+};
+
 
 &board_led {
 	status = "disabled";
