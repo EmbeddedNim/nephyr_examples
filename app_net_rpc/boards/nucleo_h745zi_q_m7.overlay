@@ -31,7 +31,7 @@
 };
 
 &mac {
-	status = "okay";
+	status = "disabled";
 };
 
 &usart1 {
@@ -40,33 +40,29 @@
 	status = "okay";
 };
 
-&flash0 {
 
-	partitions {
-		compatible = "fixed-partitions";
-		#address-cells = <1>;
-		#size-cells = <1>;
-		/* Please enable mcuboot's swap move, no scratch */
+&spi1 {
+	status = "okay";
 
-		boot_partition: partition@0 {
-			label = "mcuboot";
-			reg = <0x00000000 0x00010000>;
-			read-only;
-		};
+	pinctrl-0 = <&spi1_sck_pa5 &spi1_miso_pa6 &spi1_mosi_pb5>;
+	cs-gpios = <&gpiod 14 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;
+	
+	enc424j600@0 {
+		status = "disabled";
+		compatible = "microchip,enc424j600";
+		reg = <0>;
+		spi-max-frequency = <20000000>;
+		int-gpios = <&arduino_header 3 GPIO_ACTIVE_LOW>;	/* PIO1_28 => PLU_IN3  */
+		label = "ETH_0";
+	};
 
-		slot0_partition: partition@A000 {
-			label = "image-0";
-			reg = <0x0000A000 0x00038000>;
-		};
-		slot1_partition: partition@42000 {
-			label = "image-1";
-			reg = <0x00042000 0x00038000>;
-		};
-
-		scratch_partition: partition@7a000  {
-			label = "image-scratch";
-			reg = <0x0007a000 0x00012000>;
-		};
-
+	wizenet@0 {
+		status = "okay";
+		compatible = "wiznet,w5500";
+		reg = <0>;
+		spi-max-frequency = <14000000>;
+		int-gpios = <&gpiog 14 GPIO_ACTIVE_LOW>;	/* PIO1_28 => PLU_IN3  */
+		reset-gpios = <&gpiob 1 GPIO_ACTIVE_LOW>;	/* PIO1_28 => PLU_IN3  */
+		label = "WIZ0";
 	};
 };
