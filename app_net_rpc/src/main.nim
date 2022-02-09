@@ -18,7 +18,7 @@ app_main():
       newInetAddr("0.0.0.0", 5555, Protocol.IPPROTO_UDP),
       newInetAddr("0.0.0.0", 5555, Protocol.IPPROTO_TCP),
     ]
-    var frpc = newFastRpcServer(router, prefixMsgSize=true, threaded=true)
+    var frpc = newFastRpcServer(router, prefixMsgSize=true, threaded=false)
     startSocketServer(inetAddrs, frpc)
 
   except Exception as e:
