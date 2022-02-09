@@ -3,9 +3,7 @@ import os
 import nephyr
 import mcu_utils/logging
 
-import fast_rpc/socketserver
-import fast_rpc/routers/router_fastrpc
-import fast_rpc/socketserver/fast_rpc_impl
+import fast_rpc/server/server
 
 import rpc_server
 import version
@@ -20,7 +18,8 @@ app_main():
       newInetAddr("0.0.0.0", 5555, Protocol.IPPROTO_UDP),
       newInetAddr("0.0.0.0", 5555, Protocol.IPPROTO_TCP),
     ]
-    startSocketServer(inetAddrs, newFastRpcServer(router, prefixMsgSize=true))
+    var frpc = newFastRpcServer(router, prefixMsgSize=true, threaded=true)
+    startSocketServer(inetAddrs, frpc)
 
   except Exception as e:
     echo "[main]: exception: ", getCurrentExceptionMsg()

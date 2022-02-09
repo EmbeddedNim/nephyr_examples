@@ -1,8 +1,8 @@
 when not defined(nimscript):
   import system/nimscript
 
-# switch("define","release")
-switch("define","debug")
+switch("define","release")
+# switch("define","debug")
 # switch("define","danger")
 
 switch("os","zephyr")
@@ -11,6 +11,7 @@ switch("gc","arc")
 # switch("define", "traceArc")
 
 switch("define", "McuUtilsLoggingLevel:lvlInfo")
+# switch("define", "McuUtilsLoggingLevel:lvlDebug")
 
 const memoryConfig = "default"
 # const memory = "malloc"
