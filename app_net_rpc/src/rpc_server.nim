@@ -4,8 +4,8 @@ import mcu_utils/logging
 import nephyr/times
 import nephyr/../zephyr_c/zconfs
 
-import fast_rpc/server/server
-import fast_rpc/server/rpcmethods
+import fastrpc/server/fastrpcserver
+import fastrpc/server/rpcmethods
 
 import version
 
@@ -14,7 +14,11 @@ when not CONFIG_EVENTFD:
     raise newException(Exception, "must define eventfd")
 
 # Define RPC Server #
-rpcRegisterMethodsProc(name=initRpcExampleRouter):
+proc registerExampleRpcMethods*(
+        router: var FastRpcRouter,
+        timerQueue: InetEventQueue[int64]
+      ) {.rpcRegistrationProc.} =
+
 
   proc add(a: int, b: int): int {.rpc.} =
     result = 1 + a + b
@@ -49,15 +53,11 @@ rpcRegisterMethodsProc(name=initRpcExampleRouter):
 
     return Millis(t1-t0)
 
-  proc microspub(count: int, wait: int): int {.rpcPublisherThread().} =
-    # var subid = subs.subscribeWithThread(context, run_micros, % delay)
-    while true:
-      var times = newSeqOfCap[int64](30)
-      for i in 0..<count:
-        var ts = int64(getMonoTime().ticks() div 1000)
-        times.add(ts)
-      discard rpcPublish(times)
-      discard delay(wait.Micros)
+  proc microspub(): int64 {.rpcEventSubscriber(timerQueue).} =
+    var tval: int64
+    if timerQueue.tryRecv(tval):
+      echo "ts: ", tval
+    tval
 
   proc testerror(msg: string): string {.rpc.} =
     echo("test error: ", "what is your favorite color?")
