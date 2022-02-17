@@ -15,7 +15,7 @@ when not CONFIG_EVENTFD:
 
 # Define RPC Server #
 proc registerExampleRpcMethods*(
-        router: var FastRpcRouter,
+        routers: var FastRpcRouter,
         timerQueue: InetEventQueue[int64]
       ) {.rpcRegistrationProc.} =
 
@@ -55,8 +55,8 @@ proc registerExampleRpcMethods*(
 
   proc microspub(): int64 {.rpcEventSubscriber(timerQueue).} =
     var tval: int64
-    if timerQueue.tryRecv(tval):
-      echo "ts: ", tval
+    discard timerQueue.tryRecv(tval)
+    # echo "ts: ", tval
     tval
 
   proc testerror(msg: string): string {.rpc.} =
