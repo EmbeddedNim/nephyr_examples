@@ -28,13 +28,34 @@ app_main():
   logNotice("Booting main application: " & VERSION)
 
   try:
-    ## Setup timer publisher
-    var timer1q = InetEventQueue[int64].init(10)
-    var timerThr: Thread[(InetEventQueue[int64], int)]
-    timerThr.createThread(timePublisher, (timer1q , 1_000))
+    echo "setup timer thread"
+    var
+      timer1q = TimerDataQ.init(10)
+      timerOpt = TimerOptions(delay: 100.Millis, count: 10)
+
+    var tchan: Chan[TimerOptions] = newChan[TimerOptions](1)
+    var topt = TaskOption[TimerOptions](data: timerOpt, ch: tchan)
+    var arg = ThreadArg[seq[int64],TimerOptions](queue: timer1q, opt: topt)
+    var result: RpcStreamThread[seq[int64], TimerOptions]
+    createThread[ThreadArg[seq[int64], TimerOptions]](result, streamThread, move arg)
 
     var router = newFastRpcRouter()
-    router.registerExampleRpcMethods(timer1q)
+    router.registerRpcs(exampleRpcs)
+
+    # register a `datastream` with our RPC router
+    echo "register datastream"
+    router.registerDataStream(
+      "microspub",
+      serializer=timeSerializer,
+      reducer=timeSampler, 
+      queue = timer1q,
+      option = timerOpt,
+      optionRpcs = timerOptionsRpcs,
+    )
+
+    # print out all our new rpc's!
+    for rpc in router.procs.keys():
+      echo "  rpc: ", rpc
 
     let inetAddrs = [
       newInetAddr("0.0.0.0", 5555, Protocol.IPPROTO_UDP),
