@@ -93,7 +93,7 @@ proc timeSerializer(queue: TimerDataQ): seq[int64] {.rpcSerializer.} =
   if queue.tryRecv(result):
     let rs = rand(200)
     os.sleep(rs)
-    echo "ts: ", result.len()
+    # echo "ts: ", result.len()
 
 proc timeSampler*(queue: TimerDataQ, opts: TaskOption[TimerOptions]) {.rpcThread.} =
   ## Thread example that runs the as a time publisher. This is a reducer
@@ -101,15 +101,15 @@ proc timeSampler*(queue: TimerDataQ, opts: TaskOption[TimerOptions]) {.rpcThread
   var data = opts.data
 
   while true:
-    logAllocStats(lvlInfo):
+    logAllocStats(lvlDebug):
       var tvals = newSeqOfCap[int64](data.count)
       for i in 0..<data.count:
         var ts = int64(getMonoTime().ticks() div 1000)
         tvals.add ts
         #os.sleep(data.delay.int div (2*data.count))
 
-      logInfo "timePublisher:", "ts:", tvals[0], "len:", tvals.len.repr
-      logInfo "queue:len:", queue.chan.peek()
+      # logInfo "timePublisher:", "ts:", tvals[0], "len:", tvals.len.repr
+      # logInfo "queue:len:", queue.chan.peek()
 
       # let newOpts = opts.getUpdatedOption()
       # if newOpts.isSome:

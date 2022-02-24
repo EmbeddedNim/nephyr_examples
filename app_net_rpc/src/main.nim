@@ -14,6 +14,8 @@ import fastrpc/server/rpcmethods
 import rpc_server
 import version
 
+#  ssize_t hwinfo_get_device_id(uint8_t *buffer, size_t length)¶
+proc hwinfo_get_device_id(buffer: cstring, length: csize_t) {.importc: "$1", header: "<drivers/hwinfo.h>".}
 
 proc join_coap_multicast_group*(): bool =
   var mcast_addr: Sockaddr_in6
@@ -42,12 +44,27 @@ proc find_ll_addr*() =
   if iface.isNil:
     raise newException(Exception, "Could not get the default interface\n")
 
-  echo "iface: ", repr(iface)
+  echo "iface: ", repr(iface.config)
 
   #  struct in6_addr *net_if_ipv6_get_ll(struct net_if *iface, enum net_addr_state addr_state)¶
   let lladdr: ptr In6Addr = net_if_ipv6_get_ll(iface, NET_ADDR_ANY_STATE)
-  echo "ll addr: ", repr(lladdr)
+  echo ""
+  echo "ll_addr: ", $(lladdr[])
+  var
+    saddr: Sockaddr_in6
+    ipaddr: IpAddress
+    port: Port
+  
+  saddr.sin6_family = toInt(Domain.AF_INET6).TSa_Family
+  saddr.sin6_addr = lladdr[]
+  fromSockAddr(saddr, sizeof(saddr).SockLen, ipaddr, port)
+  echo "ll ipAddr: ", $(ipaddr)
 
+  var id = newString(8)
+  hwinfo_get_device_id(id.cstring(), id.len().csize_t)
+  echo "device id: ", repr(id)
+
+const IPV6_ANY = parseIpAddress("::")
 
 
 app_main():
@@ -87,8 +104,10 @@ app_main():
       echo "  rpc: ", rpc
 
     let inetAddrs = [
-      newInetAddr("0.0.0.0", 5555, Protocol.IPPROTO_UDP),
-      newInetAddr("0.0.0.0", 5555, Protocol.IPPROTO_TCP),
+      # newInetAddr("0.0.0.0", 5555, Protocol.IPPROTO_UDP),
+      # newInetAddr("0.0.0.0", 5555, Protocol.IPPROTO_TCP),
+      newInetAddr("::", 5555, Protocol.IPPROTO_UDP),
+      newInetAddr("::", 5555, Protocol.IPPROTO_TCP),
     ]
     var frpc = newFastRpcServer(router, prefixMsgSize=true, threaded=false)
     startSocketServer(inetAddrs, frpc)
