@@ -16,7 +16,7 @@ import std/posix
 import std/nativesockets 
 import std/net 
 
-export posix, nativcesockets, net
+export posix, nativesockets, net
 
 proc `repr`*(netll: net_linkaddr): string =
   var arr = newString(8)
@@ -73,9 +73,9 @@ proc set_mac_addr*() =
   echo "net_if_is_up: ", status
   # for i in 0..5:
     # echo "iface flags: ", iface.if_dev.flags
-  # os.sleep(1_000)
+  os.sleep(5_000)
 
-  # echo "net_if_set_link_addr:result: ", res
+  echo "net_if_set_link_addr:result: ", res
 
 
 proc print_if_info*() =
