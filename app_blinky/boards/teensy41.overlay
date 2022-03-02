@@ -29,6 +29,12 @@
 	};
 };
 
+
+&lpspi3 {
+	status = "okay";
+};
+
+
 &lpuart6 {
 	status = "disabled";
 	current-speed = < 115200 >;

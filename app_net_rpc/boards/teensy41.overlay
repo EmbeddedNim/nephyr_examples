@@ -12,14 +12,14 @@
 		zephyr,sram = &ocram;
 		zephyr,itcm = &itcm;
 		zephyr,dtcm = &dtcm;
-		zephyr,console = &lpuart4; /* Teensy Pins 0(RX1) 1(TX1) */
+		zephyr,console = &lpuart5; /* Teensy Pins 34(RX8) 35(TX8) */
 		zephyr,can-primary = &flexcan1; /* Teensy Pins 23(CRX1) 22(CTX1) */
 	};
 
 	leds {
 		compatible = "gpio-leds";
 		board_led: led-1 {
-			gpios = <&gpio2 10 GPIO_ACTIVE_HIGH>;
+			gpios = <&gpio2 3 GPIO_ACTIVE_HIGH>;
 			label = "User LED Pin 13";
 		};
 	};
@@ -44,52 +44,52 @@
 //   };
 // };
 
-/ {
-  teensy4_header: connector {
-    #gpio-cells = <2>;
-    gpio-map-mask = <0xffffffff 0xfffffc00>;
-    gpio-map-pass-thru = <0 0x3ff>;
-    gpio-map =
-        // /* GND */
-         <0 0 &gpio1 3 0>,    /* RX1 */
-         <1 0 &gpio1 2 0>,    /* TX1 */
-         <2 0 &gpio4 4 0>,    /* D1 */
-         <3 0 &gpio4 5 0>,    /* D2 */
-         <4 0 &gpio4 6 0>,    /* D3 */
-         <5 0 &gpio4 8 0>,    /* D4 */
-         <6 0 &gpio2 10 0>,   /* D5 */
-         <7 0 &gpio2 17 0>,   /* RX2 */
-         <8 0 &gpio2 16 0>,   /* TX2 */
-         <9 0 &gpio2 11 0>,   /* D6 */
-         <10 0 &gpio2 0 0>,   /* CS0 */
-         <11 0 &gpio2 2 0>,   /* MOSI */
-         <12 0 &gpio2 1 0>,   /* MISO */
-         // /* 3.3V       */
-         // /* GND */
-         <13 0 &gpio2 3 0>,    /* LED0 / SCK0 */
-         <14 0 &gpio1 18 0>,   /* TX3 */
-         <15 0 &gpio1 19 0>,   /* RX3 */
-         <16 0 &gpio1 23 0>,   /* RX4 */
-         <17 0 &gpio1 22 0>,   /* TX4 */
-         <18 0 &gpio1 17 0>,   /* SDA */
-         <19 0 &gpio1 16 0>,   /* SCL */
-         <20 0 &gpio1 26 0>,   /* TX5 */
-         <21 0 &gpio1 27 0>,   /* RX5 */
-         <22 0 &gpio1 24 0>,   /* CTX1 */
-         <23 0 &gpio1 25 0>;   /* CRX1 */
-         // 
+// / {
+//   teensy4_header: connector {
+//     #gpio-cells = <2>;
+//     gpio-map-mask = <0xffffffff 0xfffffc00>;
+//     gpio-map-pass-thru = <0 0x3ff>;
+//     gpio-map =
+//         // /* GND */
+//          <0 0 &gpio1 3 0>,    /* RX1 */
+//          <1 0 &gpio1 2 0>,    /* TX1 */
+//          <2 0 &gpio4 4 0>,    /* D1 */
+//          <3 0 &gpio4 5 0>,    /* D2 */
+//          <4 0 &gpio4 6 0>,    /* D3 */
+//          <5 0 &gpio4 8 0>,    /* D4 */
+//          <6 0 &gpio2 10 0>,   /* D5 */
+//          <7 0 &gpio2 17 0>,   /* RX2 */
+//          <8 0 &gpio2 16 0>,   /* TX2 */
+//          <9 0 &gpio2 11 0>,   /* D6 */
+//          <10 0 &gpio2 0 0>,   /* CS0 */
+//          <11 0 &gpio2 2 0>,   /* MOSI */
+//          <12 0 &gpio2 1 0>,   /* MISO */
+//          // /* 3.3V       */
+//          // /* GND */
+//          <13 0 &gpio2 3 0>,    /* LED0 / SCK0 */
+//          <14 0 &gpio1 18 0>,   /* TX3 */
+//          <15 0 &gpio1 19 0>,   /* RX3 */
+//          <16 0 &gpio1 23 0>,   /* RX4 */
+//          <17 0 &gpio1 22 0>,   /* TX4 */
+//          <18 0 &gpio1 17 0>,   /* SDA */
+//          <19 0 &gpio1 16 0>,   /* SCL */
+//          <20 0 &gpio1 26 0>,   /* TX5 */
+//          <21 0 &gpio1 27 0>,   /* RX5 */
+//          <22 0 &gpio1 24 0>,   /* CTX1 */
+//          <23 0 &gpio1 25 0>;   /* CRX1 */
+//          // 
 
-        //  <24 0 &gpio0 7 0>,   /* A10 / SCL2 / TX6 */
-        //  <25 0 &gpio0 26 0>,  /* A11 / SDA2 / RX6 */
-        //  <26 0 &gpio0 27 0>,  /* A12 / MOSI1 */
-        //  <27 0 &gpio0 6 0>,   /* A13 / SCK1 */
-        //  <28 0 &gpio0 8 0>,   /* RX7 */
-        //  <29 0 &gpio1 9 0>,   /* TX7 */
-        //  <30 0 &gpio0 8 0>,   /* CRX3 */
-        //  <31 0 &gpio1 9 0>,   /* TX3 */
-        //  <32 0 &gpio1 9 0>;   /* D7 */
-  };
-};
+//         //  <24 0 &gpio0 7 0>,   /* A10 / SCL2 / TX6 */
+//         //  <25 0 &gpio0 26 0>,  /* A11 / SDA2 / RX6 */
+//         //  <26 0 &gpio0 27 0>,  /* A12 / MOSI1 */
+//         //  <27 0 &gpio0 6 0>,   /* A13 / SCK1 */
+//         //  <28 0 &gpio0 8 0>,   /* RX7 */
+//         //  <29 0 &gpio1 9 0>,   /* TX7 */
+//         //  <30 0 &gpio0 8 0>,   /* CRX3 */
+//         //  <31 0 &gpio1 9 0>,   /* TX3 */
+//         //  <32 0 &gpio1 9 0>;   /* D7 */
+//   };
+// };
 
 teensy_serial1: &lpuart6 {
   // rx-pin = <teensy4_header 0>;
@@ -104,13 +104,6 @@ teensy_serial2: &lpuart4 {
 teensy_spi0: &lpspi4 {
 };
 
-teensy_spi1: &lpspi3 {
-  // mosi-pin = <teensy4_header 26>;
-  // miso-pin = <teensy4_header 39>;
-  // sclk-pin = <teensy4_header 27>;
-  // cs-pin = <teensy4_header 38>;
-};
-
 teensy_i2c0: &lpi2c1 {
   // sda-pin = <teensy4_header 18>;
   // scl-pin = <teensy4_header 19>;
@@ -121,21 +114,35 @@ teensy_i2c1: &lpi2c3 {
 };
 
 // &teensy_spi0 {
-mikrobus_spi: &teensy_spi1 {
+teensy_spi1: &lpspi3 {
+  status = "okay";
 	status = "okay";
-	cs-gpios = <&gpio2 0 GPIO_ACTIVE_LOW>;/* A5 */
-  // pcs-sck-delay = < 100 >;
-  // sck-pcs-delay = < 100 >;
-  // transfer-delay = < 200 >;
+	cs-gpios = <&gpio1 3 GPIO_ACTIVE_LOW>; /* TeensyPin0 */
 
-	eth_click: eth_click@0 {
-		compatible = "microchip,enc28j60";
-		reg = <0x0>;
-		local-mac-address = [00 00 00 01 02 03];
-		/* Errata B7/1 specifies min 8Mhz, 20MHz max according to RM */
+  // mosi-pin = <teensy4_header 26>;
+  // miso-pin = <teensy4_header 01>;
+  // sclk-pin = <teensy4_header 27>;
+  // cs-pin = <teensy4_header 00>;
+
+	// eth_click: eth_click@0 {
+  //   status = "disabled";
+	// 	compatible = "microchip,enc28j60";
+	// 	reg = <0x0>;
+	// 	local-mac-address = [00 00 00 01 02 03];
+	// 	/* Errata B7/1 specifies min 8Mhz, 20MHz max according to RM */
+	// 	spi-max-frequency = <8000000>;
+	// 	int-gpios = <&gpio1 18 GPIO_ACTIVE_LOW>;	/* INT */
+	// 	label = "ETH_CLICK";
+	// };
+
+	wizenet@0 {
+		status = "okay";
+		compatible = "wiznet,w5500";
+		reg = <0>;
 		spi-max-frequency = <8000000>;
-		int-gpios = <&gpio1 18 GPIO_ACTIVE_LOW>;	/* INT */
-		label = "ETH_CLICK";
+		int-gpios = <&gpio2 19 GPIO_ACTIVE_LOW>;	/* */
+		reset-gpios = <&gpio2 18 GPIO_ACTIVE_LOW>;	/* */
+		label = "WIZ0";
 	};
 };
 
