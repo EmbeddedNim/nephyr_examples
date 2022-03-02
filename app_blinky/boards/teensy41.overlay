@@ -30,11 +30,13 @@
 };
 
 &lpuart6 {
-	status = "okay";
+	status = "disabled";
 	current-speed = < 115200 >;
 };
 
-
+&flexcan1 {
+	status = "disabled";
+};
 
 // / {
 //   teensy4_header: connector {
