@@ -56,11 +56,11 @@ proc spi_debug() =
 
 proc adsSpiSetup*() =
 
-  spi_dev = DEVICE_DT_GET(DT_NODELABEL(tok"mikrobus_spi"))
+  spi_dev = DEVICE_DT_GET(DT_NODELABEL(tok"lpspi3"))
   cs_ctrl = SPI_CS_CONTROL_PTR_DT(DT_NODELABEL(tok"ads131e08"), tok`2`)[]
 
   spi_cfg = spi_config(
-        frequency: 4_000_000'u32, #Fail on this spin of NRF52840, upclock to 20MHz for other MCU's
+        frequency: 20_000_000'u32, #Fail on this spin of NRF52840, upclock to 20MHz for other MCU's
         operation: SPI_WORD_SET(8) or SPI_TRANSFER_MSB or SPI_OP_MODE_MASTER or SPI_MODE_CPHA,
         cs: addr cs_ctrl)
   

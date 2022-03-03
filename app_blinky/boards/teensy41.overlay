@@ -4,10 +4,6 @@
 	model = "PJRC TEENSY 4.0 board";
 	compatible = "nxp,mimxrt1062";
 
-	aliases {
-		led0 = &board_led;
-	};
-
 	chosen {
 		zephyr,sram = &ocram;
 		zephyr,itcm = &itcm;
@@ -22,7 +18,18 @@
 			gpios = <&gpio2 3 GPIO_ACTIVE_HIGH>;
 			label = "User LED Pin 13";
 		};
+
+		button1: button_1 {
+			gpios = <&gpio2 19 GPIO_PULL_UP>;
+			label = "Hack for drdy.";
+		};
 	};
+
+	aliases {
+		led0 = &board_led;
+		ndrdy = &button1;
+	};
+
 };
 
 &lpuart5 {
@@ -34,8 +41,8 @@
 teensy_spi1: &lpspi3 {
 	status = "okay";
 	cs-gpios = <&gpio1 3 GPIO_ACTIVE_LOW>; /* TeensyPin0 */
-  pcs-sck-delay = < 60 >;
-  sck-pcs-delay = < 60 >;
+  // pcs-sck-delay = < 60 >;
+  // sck-pcs-delay = < 60 >;
   transfer-delay = < 60 >;
 
 	// wizenet@0 {
@@ -47,6 +54,16 @@ teensy_spi1: &lpspi3 {
 	// 	reset-gpios = <&gpio2 18 GPIO_ACTIVE_LOW>;	/* */
 	// 	label = "WIZ0";
 	// };
+
+	ads131e08: spi-device@0 {
+		status = "okay";
+		compatible = "ti,ads131e08";
+		reg = <0>;
+		spi-max-frequency = <10000000>;
+		// int-gpios = <&gpio2 19 GPIO_ACTIVE_LOW>;	/* PIO1_28 => PLU_IN3  */
+		label = "EXT_ADC_0";
+	};
+
 };
 
 
