@@ -22,8 +22,8 @@ app_main():
   # set_mac_addr()
   # print_if_info()
   echo "setting up net config"
-  let res = net_config_init("app", 0, 100)
-  echo "net config result: ", res
+  # let res = net_config_init("app", 0, 100)
+  # echo "net config result: ", res
 
   try:
     ## ll addr
