@@ -10,8 +10,8 @@ switch("gc","arc")
 # switch("define", "nimArcDebug")
 # switch("define", "traceArc")
 
-switch("define", "McuUtilsLoggingLevel:lvlInfo")
-# switch("define", "McuUtilsLoggingLevel:lvlDebug")
+# switch("define", "McuUtilsLoggingLevel:lvlInfo")
+switch("define", "McuUtilsLoggingLevel:lvlDebug")
 
 const memoryConfig = "default"
 # const memory = "malloc"

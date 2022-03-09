@@ -18,12 +18,9 @@ import net_utils
 app_main():
   logNotice("Booting main application: " & VERSION)
 
-  # print_if_info()
-  # set_mac_addr()
-  # print_if_info()
-  echo "setting up net config"
-  let res = net_config_init("app", 0, 100)
-  echo "net config result: ", res
+  # echo "setting up net config"
+  # let res = net_config_init("app", 0, 100)
+  # echo "net config result: ", res
 
   try:
     ## ll addr
@@ -33,7 +30,7 @@ app_main():
     echo "setup timer thread"
     var
       timer1q = TimerDataQ.init(10)
-      timerOpt = TimerOptions(delay: 100.Millis, count: 10)
+      timerOpt = TimerOptions(delay: 4_000.Millis, count: 10)
 
     var tchan: Chan[TimerOptions] = newChan[TimerOptions](1)
     var topt = TaskOption[TimerOptions](data: timerOpt, ch: tchan)
@@ -65,7 +62,14 @@ app_main():
       newInetAddr("::", 5555, Protocol.IPPROTO_UDP),
       newInetAddr("::", 5555, Protocol.IPPROTO_TCP),
     ]
+
     var frpc = newFastRpcServer(router, prefixMsgSize=true, threaded=false)
+
+    let maddr = newClientHandle("ff12::1", 2048, -1.SocketHandle, net.IPPROTO_UDP)
+    logInfo "app_net_rpc:", "multicast-addr:", repr maddr
+    let mpub = router.subscribe("microspub", maddr)
+    logInfo "app_net_rpc:", "multicast-publish:", repr mpub
+
     startSocketServer(inetAddrs, frpc)
 
   except Exception as e:
