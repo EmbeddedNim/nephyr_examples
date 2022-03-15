@@ -11,6 +11,7 @@ import fastrpc/server/fastrpcserver
 import fastrpc/server/rpcmethods
 
 import rpc_server
+import info_stream
 import version
 
 import net_utils
@@ -30,7 +31,9 @@ app_main():
     echo "setup timer thread"
     var
       timer1q = TimerDataQ.init(10)
-      timerOpt = TimerOptions(delay: 4_000.Millis, count: 10)
+      timerOpt = TimerOptions(delay: 1_000.Millis, count: 10)
+      ann1q = InetEventQueue[Millis].init(10)
+      annOpt = AnnouncementOptions(delay: 2_000.Millis)
 
     var tchan: Chan[TimerOptions] = newChan[TimerOptions](1)
     var topt = TaskOption[TimerOptions](data: timerOpt, ch: tchan)
@@ -45,11 +48,20 @@ app_main():
     echo "register datastream"
     router.registerDataStream(
       "microspub",
-      serializer=timeSerializer,
-      reducer=timeSampler, 
+      serializer = timeSerializer,
+      reducer = timeSampler, 
       queue = timer1q,
       option = timerOpt,
       optionRpcs = timerOptionsRpcs,
+    )
+
+    router.registerDataStream(
+      "announcement",
+      serializer = announcementSerializer,
+      reducer = announcementStreamer, 
+      queue = ann1q,
+      option = annOpt,
+      optionRpcs = annOptionsRpcs,
     )
 
     # print out all our new rpc's!
@@ -67,7 +79,7 @@ app_main():
 
     let maddr = newClientHandle("ff12::1", 2048, -1.SocketHandle, net.IPPROTO_UDP)
     logInfo "app_net_rpc:", "multicast-addr:", repr maddr
-    let mpub = router.subscribe("microspub", maddr)
+    let mpub = router.subscribe("microspub", maddr, 0.Millis)
     logInfo "app_net_rpc:", "multicast-publish:", repr mpub
 
     startSocketServer(inetAddrs, frpc)

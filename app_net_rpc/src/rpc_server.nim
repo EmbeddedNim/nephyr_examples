@@ -20,7 +20,7 @@ when not CONFIG_EVENTFD:
 DefineRpcs(name=exampleRpcs):
 
   proc add(a: int, b: int): int {.rpc.} =
-    result = 1 + a + b
+    result = a + b
 
   proc addAll(vals: seq[int]): int {.rpc.} =
     for val in vals:
@@ -85,7 +85,7 @@ DefineRpcTaskOptions[TimerOptions](name=timerOptionsRpcs):
     result = option.delay.int
   
 
-proc timeSerializer(queue: TimerDataQ): seq[int64] {.rpcSerializer.} =
+proc timeSerializer*(queue: TimerDataQ): seq[int64] {.rpcSerializer.} =
   ## called by the socket server every time there's data
   ## on the queue argument given the `rpcEventSubscriber`.
   ## 
@@ -121,7 +121,7 @@ proc timeSampler*(queue: TimerDataQ, opts: TaskOption[TimerOptions]) {.rpcThread
       discard queue.trySend(qvals)
 
 proc streamThread*(arg: ThreadArg[seq[int64], TimerOptions]) {.thread, nimcall.} = 
-  os.sleep(5_000)
+  os.sleep(1_000)
   echo "streamThread: ", repr(arg.opt.data)
   timeSampler(arg.queue, arg.opt)
 
