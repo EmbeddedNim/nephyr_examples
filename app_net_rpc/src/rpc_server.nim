@@ -122,6 +122,6 @@ proc timeSampler*(queue: TimerDataQ, opts: TaskOption[TimerOptions]) {.rpcThread
 
 proc streamThread*(arg: ThreadArg[seq[int64], TimerOptions]) {.thread, nimcall.} = 
   os.sleep(1_000)
-  echo "streamThread: ", repr(arg.opt.data)
+  echo "STREAMTHREAD: timersampler ", repr(arg.opt.data)
   timeSampler(arg.queue, arg.opt)
 

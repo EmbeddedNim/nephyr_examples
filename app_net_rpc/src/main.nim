@@ -30,18 +30,18 @@ app_main():
 
     echo "setup timer thread"
     var
-      timer1q = TimerDataQ.init(10)
+      timer1q = TimerDataQ.init(2)
       timerOpt = TimerOptions(delay: 1_000.Millis, count: 10)
-      ann1q = InetEventQueue[Millis].init(10)
+      ann1q = InetEventQueue[Millis].init(2)
       annOpt = AnnouncementOptions(delay: 2_000.Millis)
 
     var tchan1: Chan[TimerOptions] = newChan[TimerOptions](1)
     var topt1 = TaskOption[TimerOptions](data: timerOpt, ch: tchan1)
     var arg1 = ThreadArg[seq[int64],TimerOptions](queue: timer1q, opt: topt1)
     var thr1: RpcStreamThread[seq[int64], TimerOptions]
-    createThread[ThreadArg[seq[int64], TimerOptions]](thr1, streamThread, move arg1)
+    # createThread[ThreadArg[seq[int64], TimerOptions]](thr1, streamThread, move arg1)
 
-    var tchan2: Chan[AnnouncementOptions] = newChan[AnnouncementOptions](1)
+    var tchan2: Chan[AnnouncementOptions] = newChan[AnnouncementOptions](2)
     var topt2 = TaskOption[AnnouncementOptions](data: annOpt, ch: tchan2)
     var arg2 = ThreadArg[Millis,AnnouncementOptions](queue: ann1q, opt: topt2)
     var thr2: RpcStreamThread[Millis, AnnouncementOptions]
@@ -87,7 +87,7 @@ app_main():
     logInfo "app_net_rpc:", "multicast-addr:", repr maddr
     let microsPub = router.subscribe("microspub", maddr, 0.Millis)
     logInfo "app_net_rpc:", "multicast-publish:", repr microsPub 
-    let annPub = router.subscribe("microspub", maddr, 0.Millis)
+    let annPub = router.subscribe("announcement", maddr, 0.Millis)
     logInfo "app_net_rpc:", "ann-publish:", repr annPub 
 
     startSocketServer(inetAddrs, frpc)

@@ -20,7 +20,7 @@ import version
 
 type
   AnnouncementData* = object
-    uptime*: float64
+    uptime*: int64
     identifier*: string
     fwversion*: array[3, int]
     fastrRpcPort*: int
@@ -43,20 +43,29 @@ DefineRpcTaskOptions[AnnouncementOptions](name=annOptionsRpcs):
     else:
       return false
 
-proc announcementSerializer*(queue: InetEventQueue[Millis]): TableRef[string, JsonNode] {.rpcSerializer.} =
+proc announcementSerializer*(queue: InetEventQueue[Millis]): FastRpcParamsBuffer {.rpcSerializer.} =
   ## called by the socket server every time there's data
   ## on the queue argument given the `rpcEventSubscriber`.
   ## 
   # var tvals: seq[int64]
   var ts: Millis
 
-  new(result)
+  echo "announcementSerializer: start: "
+  var resp = %* { "type": "announcement" }
   for field, val in fieldPairs(announcement):
     when field != "delay":
-      result[field] = % val
+      resp[field] = % val
 
   if queue.tryRecv(ts):
-    result["uptime"] = %( ts.int64.toBiggestFloat() / 1.0e3)
+    # result["uptime"] = %( ts.int64.toBiggestFloat() / 1.0e3)
+    resp["uptime"] = %( ts.int64 )
+    # var data = AnnouncementData( uptime: ts.int64)
+    echo "announcementSerializer: data: ", $(result)
+    var jpack = resp.fromJsonNode()
+    var ss = MsgBuffer.init(jpack)
+    ss.setPosition(jpack.len())
+    result = FastRpcParamsBuffer(buf: ss)
+
 
 proc announcementStreamer*(queue: InetEventQueue[Millis],
                            opts: TaskOption[AnnouncementOptions]) {.rpcThread.} =
@@ -66,11 +75,13 @@ proc announcementStreamer*(queue: InetEventQueue[Millis],
 
   while true:
     os.sleep(data.delay.int)
-    var qvals = isolate millis()
+    var ms = millis()
+    echo "STREAMTHREAD: annthread: data: ", repr(ms)
+    var qvals = isolate ms
     discard queue.trySend(qvals)
 
 proc annStreamThread*(arg: ThreadArg[Millis, AnnouncementOptions]) {.thread, nimcall.} = 
   os.sleep(1_000)
-  echo "streamThread: ", repr(arg.opt.data)
+  echo "STREAMTHREAD: annthread", repr(arg.opt.data)
   announcementStreamer(arg.queue, arg.opt)
 
