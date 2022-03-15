@@ -79,8 +79,10 @@ app_main():
 
     let maddr = newClientHandle("ff12::1", 2048, -1.SocketHandle, net.IPPROTO_UDP)
     logInfo "app_net_rpc:", "multicast-addr:", repr maddr
-    let mpub = router.subscribe("microspub", maddr, 0.Millis)
-    logInfo "app_net_rpc:", "multicast-publish:", repr mpub
+    let microsPub = router.subscribe("microspub", maddr, 0.Millis)
+    logInfo "app_net_rpc:", "multicast-publish:", repr microsPub 
+    let annPub = router.subscribe("microspub", maddr, 0.Millis)
+    logInfo "app_net_rpc:", "ann-publish:", repr annPub 
 
     startSocketServer(inetAddrs, frpc)
 
