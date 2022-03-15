@@ -35,11 +35,17 @@ app_main():
       ann1q = InetEventQueue[Millis].init(10)
       annOpt = AnnouncementOptions(delay: 2_000.Millis)
 
-    var tchan: Chan[TimerOptions] = newChan[TimerOptions](1)
-    var topt = TaskOption[TimerOptions](data: timerOpt, ch: tchan)
-    var arg = ThreadArg[seq[int64],TimerOptions](queue: timer1q, opt: topt)
-    var result: RpcStreamThread[seq[int64], TimerOptions]
-    createThread[ThreadArg[seq[int64], TimerOptions]](result, streamThread, move arg)
+    var tchan1: Chan[TimerOptions] = newChan[TimerOptions](1)
+    var topt1 = TaskOption[TimerOptions](data: timerOpt, ch: tchan1)
+    var arg1 = ThreadArg[seq[int64],TimerOptions](queue: timer1q, opt: topt1)
+    var thr1: RpcStreamThread[seq[int64], TimerOptions]
+    createThread[ThreadArg[seq[int64], TimerOptions]](thr1, streamThread, move arg1)
+
+    var tchan2: Chan[AnnouncementOptions] = newChan[AnnouncementOptions](1)
+    var topt2 = TaskOption[AnnouncementOptions](data: annOpt, ch: tchan2)
+    var arg2 = ThreadArg[Millis,AnnouncementOptions](queue: ann1q, opt: topt2)
+    var thr2: RpcStreamThread[Millis, AnnouncementOptions]
+    createThread[ThreadArg[Millis, AnnouncementOptions]](thr2, annStreamThread, move arg2)
 
     var router = newFastRpcRouter()
     router.registerRpcs(exampleRpcs)

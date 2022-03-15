@@ -69,7 +69,7 @@ proc announcementStreamer*(queue: InetEventQueue[Millis],
     var qvals = isolate millis()
     discard queue.trySend(qvals)
 
-proc streamThread*(arg: ThreadArg[Millis, AnnouncementOptions]) {.thread, nimcall.} = 
+proc annStreamThread*(arg: ThreadArg[Millis, AnnouncementOptions]) {.thread, nimcall.} = 
   os.sleep(1_000)
   echo "streamThread: ", repr(arg.opt.data)
   announcementStreamer(arg.queue, arg.opt)
