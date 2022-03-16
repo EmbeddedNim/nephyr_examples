@@ -87,7 +87,7 @@ proc print_if_info*() =
 
   echo "iface: ", repr(iface.if_dev.link_addr)
 
-proc find_ll_addr*() =
+proc find_ll_addr*(): IpAddress =
   let iface: ptr net_if = net_if_get_default()
   if iface.isNil:
     raise newException(Exception, "Could not get the default interface\n")
@@ -96,8 +96,8 @@ proc find_ll_addr*() =
 
   #  struct in6_addr *net_if_ipv6_get_ll(struct net_if *iface, enum net_addr_state addr_state)¶
   let lladdr: ptr In6Addr = net_if_ipv6_get_ll(iface, NET_ADDR_ANY_STATE)
-  echo ""
-  echo "ll_addr: ", $(lladdr[])
+  # echo ""
+  # echo "ll_addr: ", $(lladdr[])
   var
     saddr: Sockaddr_in6
     ipaddr: IpAddress
@@ -106,9 +106,13 @@ proc find_ll_addr*() =
   saddr.sin6_family = toInt(Domain.AF_INET6).TSa_Family
   saddr.sin6_addr = lladdr[]
   fromSockAddr(saddr, sizeof(saddr).SockLen, ipaddr, port)
-  echo "ll ipAddr: ", $(ipaddr)
+  # result = $ipaddr
+  # echo "ll ipAddr: ", $(ipaddr)
+  result = ipaddr
 
+proc find_dev_id*(): string =
   var id = newString(8)
   hwinfo_get_device_id(id.cstring(), id.len().csize_t)
-  echo "device id: ", repr(id)
+  # echo "device id: ", repr(id)
+  return $id
 

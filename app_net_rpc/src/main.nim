@@ -25,7 +25,7 @@ app_main():
 
   try:
     ## ll addr
-    find_ll_addr()
+    echo "link local addr: ", find_ll_addr()
     print_if_info()
 
     echo "setup timer thread"
@@ -64,7 +64,7 @@ app_main():
     router.registerDataStream(
       "announcement",
       serializer = announcementSerializer,
-      reducer = announcementStreamer, 
+      reducer = announcementStreamer,
       queue = ann1q,
       option = annOpt,
       optionRpcs = annOptionsRpcs,

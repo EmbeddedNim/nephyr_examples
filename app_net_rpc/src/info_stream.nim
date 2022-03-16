@@ -10,6 +10,7 @@ import nephyr/../zephyr_c/zconfs
 import fastrpc/server/fastrpcserver
 import fastrpc/server/rpcmethods
 
+import net_utils
 import version
 
 # * Sensor identity (name, location, etc)
@@ -23,9 +24,9 @@ type
     uptime*: int64
     identifier*: string
     fwversion*: array[3, int]
-    fastrRpcPort*: int
-    macAddress*: array[6, byte]
-    linkLocal*: array[16, byte]
+    fastRpcPort*: int
+    macAddress*: array[6, uint8]
+    linkLocal*: array[16, uint8]
 
   AnnouncementOptions* {.rpcOption.} = object
     delay*: Millis
@@ -50,17 +51,16 @@ proc announcementSerializer*(queue: InetEventQueue[Millis]): FastRpcParamsBuffer
   # var tvals: seq[int64]
   var ts: Millis
 
-  echo "announcementSerializer: start: "
-  var resp = %* { "type": "announcement" }
+  var resp = %* { "type": "announce" }
   for field, val in fieldPairs(announcement):
     when field != "delay":
       resp[field] = % val
 
   if queue.tryRecv(ts):
-    # result["uptime"] = %( ts.int64.toBiggestFloat() / 1.0e3)
-    resp["uptime"] = %( ts.int64 )
+    # echo "tsf done"
+    resp["uptime"] = %(ts.int64.toBiggestFloat() / 1.0e3)
     # var data = AnnouncementData( uptime: ts.int64)
-    echo "announcementSerializer: data: ", $(result)
+    # echo "announcementSerializer: data: ", $(result)
     var jpack = resp.fromJsonNode()
     var ss = MsgBuffer.init(jpack)
     ss.setPosition(jpack.len())
@@ -73,10 +73,20 @@ proc announcementStreamer*(queue: InetEventQueue[Millis],
   ## that gathers time samples and outputs arrays of timestamp samples.
   var data = opts.data
 
+  {.cast(gcsafe).}:
+    let ll = find_ll_addr()
+    announcement = AnnouncementData(
+      identifier: "",
+      fwversion: [1, 0, 0],
+      fastRpcPort: 5555,
+      # macAddress: array[6, uint8]
+      linkLocal: ll.address_v6
+    )
+  # address_v6
+
   while true:
     os.sleep(data.delay.int)
     var ms = millis()
-    echo "STREAMTHREAD: annthread: data: ", repr(ms)
     var qvals = isolate ms
     discard queue.trySend(qvals)
 
