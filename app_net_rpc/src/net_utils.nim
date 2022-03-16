@@ -87,12 +87,22 @@ proc print_if_info*() =
 
   echo "iface: ", repr(iface.if_dev.link_addr)
 
+proc find_mac_addr*(): array[6, uint8] =
+  let iface: ptr net_if = net_if_get_default()
+  if iface.isNil:
+    raise newException(Exception, "Could not get the default interface\n")
+
+  let ll_addr: net_linkaddr = iface.if_dev.link_addr
+  # echo repr iface.if_dev.link_addr
+
+  copyMem(result[0].addr, ll_addr.caddr, min(len(result), ll_addr.len.int))
+
 proc find_ll_addr*(): IpAddress =
   let iface: ptr net_if = net_if_get_default()
   if iface.isNil:
     raise newException(Exception, "Could not get the default interface\n")
 
-  echo "iface: ", repr(iface.config)
+  # echo "iface: ", repr(iface.config)
 
   #  struct in6_addr *net_if_ipv6_get_ll(struct net_if *iface, enum net_addr_state addr_state)¶
   let lladdr: ptr In6Addr = net_if_ipv6_get_ll(iface, NET_ADDR_ANY_STATE)

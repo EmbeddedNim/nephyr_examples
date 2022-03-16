@@ -79,7 +79,7 @@ proc announcementStreamer*(queue: InetEventQueue[Millis],
       identifier: "",
       fwversion: [1, 0, 0],
       fastRpcPort: 5555,
-      # macAddress: array[6, uint8]
+      macAddress: find_mac_addr(),
       linkLocal: ll.address_v6
     )
   # address_v6
