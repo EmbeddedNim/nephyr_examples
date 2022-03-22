@@ -1,0 +1,28 @@
+{
+	"folders": [
+		{
+			"path": "../app"
+		},
+		{
+			"path": "../zephyrproject/zephyr"
+		},
+		{
+			"path": "../nephyr"
+		},
+		{
+			"path": "../fast_rpc"
+		},
+		{
+			"path": "../mcu_utils"
+		},
+		{
+			"path": "../.choosenim/toolchains/nim-#devel"
+		}
+	],
+	"settings": {
+		"files.associations": {
+			"spinlock.h": "c",
+			"entropy.h": "c"
+		}
+	},
+}
