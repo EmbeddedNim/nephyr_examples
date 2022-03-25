@@ -19,9 +19,9 @@ import net_utils
 app_main():
   logNotice("Booting main application: " & VERSION)
 
-  # echo "setting up net config"
-  # let res = net_config_init("app", 0, 100)
-  # echo "net config result: ", res
+  logNotice "setting up net config"
+  let res = net_config_init("app", 0, 100)
+  echo "net config result: ", res
 
   try:
     ## ll addr
