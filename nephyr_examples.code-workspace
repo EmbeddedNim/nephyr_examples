@@ -10,7 +10,10 @@
 			"path": "../nephyr"
 		},
 		{
-			"path": "../fast_rpc"
+			"path": "../fastrpc"
+		},
+		{
+			"path": "../nimbedded_drivers"
 		},
 		{
 			"path": "../mcu_utils"
