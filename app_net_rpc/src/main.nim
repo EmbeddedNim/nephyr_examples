@@ -27,11 +27,11 @@ var KERNEL_INIT_PRIORITY_DEFAULT* {.importc: "KERNEL_INIT_PRIORITY_DEFAULT", hea
 proc SYS_INIT*(fn: proc {.cdecl.}, level: cint, priority: cint) {.importc: "SYS_INIT", header: "<init.h>".}
 
 template SystemInit*(fn: proc {.cdecl.}, level: SystemLevel, priority: int) =
-  {.emit: ["/*INCLUDESECTION*/ #include <zephyr/types.h>"].}
-  {.emit: ["/*INCLUDESECTION*/ #include <init.h>"].}
+  ## Template to setup a zephyr initialization callback for a given level and priority. 
   {.emit: ["/*VARSECTION*/\nSYS_INIT(", fn, ", ", level.ord(), ", ", priority, ");"].}
 
 when BOARD in ["teensy40", "teensy41"]:
+  ## Change Teensy PinMux to use CS GPIO Pin
   type MuxCfg* = distinct int
   var IOMUXC_GPIO_AD_B0_03_GPIO1_IO03* {.importc: "$1", header: "<fsl_iomuxc.h>".}: MuxCfg
   proc IOMUXC_SetPinMux*(muxCfg: MuxCfg, val: cint) {.importc: "IOMUXC_SetPinMux", header: "<fsl_iomuxc.h>".}
@@ -40,9 +40,6 @@ when BOARD in ["teensy40", "teensy41"]:
     IOMUXC_SetPinMux(IOMUXC_GPIO_AD_B0_03_GPIO1_IO03, 0)
 
   SystemInit(board_configuration, INIT_PRE_KERNEL_1, 40)
-  # {.emit: """
-  # SYS_INIT(board_configuration, PRE_KERNEL_1, 40);
-  # """.}
 
 
 app_main():
