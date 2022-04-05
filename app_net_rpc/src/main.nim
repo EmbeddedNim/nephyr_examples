@@ -13,8 +13,23 @@ import fastrpc/server/rpcmethods
 import rpc_server
 import info_stream
 import version
-
 import net_utils
+
+when BOARD in ["teensy40", "teensy41"]:
+  type MuxCfg* = distinct int
+  var IOMUXC_GPIO_AD_B0_03_GPIO1_IO03* {.importc: "$1", header: "<fsl_iomuxc.h>".}: MuxCfg
+  proc IOMUXC_SetPinMux*(muxCfg: MuxCfg, val: cint) {.importc: "IOMUXC_SetPinMux", header: "<fsl_iomuxc.h>".}
+
+  var PRE_KERNEL_1* {.importc: "_SYS_INIT_LEVEL_PRE_KERNEL_1", header: "<init.h>".}: cint
+  proc SYS_INIT*(fn: proc {.cdecl.}, level: cint, priority: cint) {.importc: "SYS_INIT", header: "<init.h>".}
+
+  proc board_configuration() {.exportc.} =
+    IOMUXC_SetPinMux(IOMUXC_GPIO_AD_B0_03_GPIO1_IO03, 0)
+
+  {.emit: """
+  SYS_INIT(board_configuration, PRE_KERNEL_1, 40);
+  """.}
+
 
 app_main():
   logNotice("Booting main application: " & VERSION)

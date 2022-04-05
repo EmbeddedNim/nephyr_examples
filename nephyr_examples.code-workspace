@@ -20,6 +20,9 @@
 		},
 		{
 			"path": "../.choosenim/toolchains/nim-#devel"
+		},
+		{
+			"path": "../zephyrproject/modules/hal/nxp"
 		}
 	],
 	"settings": {
