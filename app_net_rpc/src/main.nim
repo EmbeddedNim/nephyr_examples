@@ -15,20 +15,34 @@ import info_stream
 import version
 import net_utils
 
+# var PRE_KERNEL_1* {.importc: "_SYS_INIT_LEVEL_PRE_KERNEL_1", header: "<init.h>".}: cint
+type SystemLevel = enum
+  INIT_PRE_KERNEL_1 = 0,
+  INIT_PRE_KERNEL_2 = 1,
+  INIT_POST_KERNEL = 2,
+  INIT_APPLICATION = 3,
+  INIT_SMP = 4
+
+var KERNEL_INIT_PRIORITY_DEFAULT* {.importc: "KERNEL_INIT_PRIORITY_DEFAULT", header: "<init.h>".}: cint
+proc SYS_INIT*(fn: proc {.cdecl.}, level: cint, priority: cint) {.importc: "SYS_INIT", header: "<init.h>".}
+
+template SystemInit*(fn: proc {.cdecl.}, level: SystemLevel, priority: int) =
+  {.emit: ["/*INCLUDESECTION*/ #include <zephyr/types.h>"].}
+  {.emit: ["/*INCLUDESECTION*/ #include <init.h>"].}
+  {.emit: ["/*VARSECTION*/\nSYS_INIT(", fn, ", ", level.ord(), ", ", priority, ");"].}
+
 when BOARD in ["teensy40", "teensy41"]:
   type MuxCfg* = distinct int
   var IOMUXC_GPIO_AD_B0_03_GPIO1_IO03* {.importc: "$1", header: "<fsl_iomuxc.h>".}: MuxCfg
   proc IOMUXC_SetPinMux*(muxCfg: MuxCfg, val: cint) {.importc: "IOMUXC_SetPinMux", header: "<fsl_iomuxc.h>".}
 
-  var PRE_KERNEL_1* {.importc: "_SYS_INIT_LEVEL_PRE_KERNEL_1", header: "<init.h>".}: cint
-  proc SYS_INIT*(fn: proc {.cdecl.}, level: cint, priority: cint) {.importc: "SYS_INIT", header: "<init.h>".}
-
   proc board_configuration() {.exportc.} =
     IOMUXC_SetPinMux(IOMUXC_GPIO_AD_B0_03_GPIO1_IO03, 0)
 
-  {.emit: """
-  SYS_INIT(board_configuration, PRE_KERNEL_1, 40);
-  """.}
+  SystemInit(board_configuration, INIT_PRE_KERNEL_1, 40)
+  # {.emit: """
+  # SYS_INIT(board_configuration, PRE_KERNEL_1, 40);
+  # """.}
 
 
 app_main():

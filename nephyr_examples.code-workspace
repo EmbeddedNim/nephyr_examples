@@ -28,7 +28,8 @@
 	"settings": {
 		"files.associations": {
 			"spinlock.h": "c",
-			"entropy.h": "c"
+			"entropy.h": "c",
+			"types.h": "c"
 		}
 	},
 }
