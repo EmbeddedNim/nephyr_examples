@@ -31,7 +31,7 @@ app_main():
       timer1q = TimerDataQ.init(2)
       timerOpt = TimerOptions(delay: 1_000.Millis, count: 10)
       ann1q = InetEventQueue[Millis].init(2)
-      annOpt = AnnouncementOptions(delay: 2_000.Millis)
+      annOpt = AnnouncementOptions(delay: 5_000.Millis)
 
     var tchan1: Chan[TimerOptions] = newChan[TimerOptions](1)
     var topt1 = TaskOption[TimerOptions](data: timerOpt, ch: tchan1)

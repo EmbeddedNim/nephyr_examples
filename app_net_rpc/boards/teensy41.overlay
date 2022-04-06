@@ -37,6 +37,47 @@
 	current-speed = < 460800 >;
 };
 
+teensy_spi1: &lpspi3 {
+	status = "okay";
+	cs-gpios = <&gpio1 3 GPIO_ACTIVE_LOW>, <&gpio2 0 GPIO_ACTIVE_LOW>; /* TeensyPin0 */
+  // pcs-sck-delay = < 60 >;
+  // sck-pcs-delay = < 60 >;
+  transfer-delay = < 60 >;
+
+	wizenet@0 {
+		status = "okay";
+		compatible = "wiznet,w5500";
+		reg = <0>;
+		spi-max-frequency = <40000000>;
+		int-gpios = <&gpio2 19 GPIO_ACTIVE_LOW>;	/* */
+		reset-gpios = <&gpio2 18 GPIO_ACTIVE_LOW>;	/* */
+		label = "WIZ0";
+	};
+};
+
+// teensy_spi1: &lpspi3 {
+// 	ads131e08: spi-device@1 {
+// 		status = "okay";
+// 		compatible = "ti,ads131e08";
+// 		reg = <1>;
+// 		spi-max-frequency = <10000000>;
+// 		// int-gpios = <&gpio2 19 GPIO_ACTIVE_LOW>;	/* PIO1_28 => PLU_IN3  */
+// 		label = "EXT_ADC_0";
+// 	};
+
+// };
+
+
+&flexcan1 {
+	status = "disabled";
+};
+&lpuart2 {
+	status = "disabled";
+};
+&lpuart6 {
+	status = "disabled";
+};
+
 // &enet {
 //   status = "okay";
 //   ptp {
@@ -54,42 +95,3 @@
 //     status = "okay";
 //   };
 // };
-
-teensy_spi1: &lpspi3 {
-	status = "okay";
-	cs-gpios = <&gpio1 3 GPIO_ACTIVE_LOW>, <&gpio2 0 GPIO_ACTIVE_LOW>; /* TeensyPin0 */
-  // pcs-sck-delay = < 60 >;
-  // sck-pcs-delay = < 60 >;
-  transfer-delay = < 60 >;
-
-	wizenet@0 {
-		status = "okay";
-		compatible = "wiznet,w5500";
-		reg = <0>;
-		spi-max-frequency = <30000000>;
-		int-gpios = <&gpio2 19 GPIO_ACTIVE_LOW>;	/* */
-		reset-gpios = <&gpio2 18 GPIO_ACTIVE_LOW>;	/* */
-		label = "WIZ0";
-	};
-
-	ads131e08: spi-device@1 {
-		status = "okay";
-		compatible = "ti,ads131e08";
-		reg = <1>;
-		spi-max-frequency = <10000000>;
-		// int-gpios = <&gpio2 19 GPIO_ACTIVE_LOW>;	/* PIO1_28 => PLU_IN3  */
-		label = "EXT_ADC_0";
-	};
-
-};
-
-
-&flexcan1 {
-	status = "disabled";
-};
-&lpuart2 {
-	status = "disabled";
-};
-&lpuart6 {
-	status = "disabled";
-};
