@@ -4,6 +4,7 @@ import std/monotimes
 import mcu_utils/logging
 
 import nephyr
+import nephyr/nets
 include nephyr/board_fixes
 
 import fastrpc/server/fastrpcserver
