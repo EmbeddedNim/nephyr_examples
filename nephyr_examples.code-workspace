@@ -13,16 +13,13 @@
 			"path": "../fastrpc"
 		},
 		{
-			"path": "../nimbedded_drivers"
+			"path": "../devicedrivers"
 		},
 		{
 			"path": "../mcu_utils"
 		},
 		{
-			"path": "../.choosenim/toolchains/nim-#devel"
-		},
-		{
-			"path": "../zephyrproject/modules/hal/nxp"
+			"path": "../Nim"
 		}
 	],
 	"settings": {
