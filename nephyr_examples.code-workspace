@@ -27,6 +27,7 @@
 			"spinlock.h": "c",
 			"entropy.h": "c",
 			"types.h": "c"
-		}
+		},
+		"workbench.editor.labelFormat": "medium"
 	},
 }
